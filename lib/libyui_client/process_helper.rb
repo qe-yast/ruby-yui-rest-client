@@ -3,7 +3,7 @@ require "socket"
 
 module LibyuiClient 
  # default timeout for process
- DEFAULT_TIMEOUT_PROCESS = 15
+ DEFAULT_TIMEOUT_PROCESS = 20
   
  # set the application introspection port for communication
  def self.set_port
@@ -31,7 +31,7 @@ module LibyuiClient
    Timeout.timeout(DEFAULT_TIMEOUT_PROCESS) do
      loop do
        sleep(1)
-       puts "Waiting for #{host}:#{port}..."
+       puts "Waiting for #{host}:#{port}..." if ENV["DEBUG"]
        break if port_open?(host, port)
      end
    end
@@ -48,7 +48,7 @@ module LibyuiClient
      raise "The port #{@app_host}:#{@app_port} is already open!"
    end
   
-   puts "Starting #{application}..."
+   puts "Starting #{application}..." if ENV["DEBUG"]
    # create a new process group so easily we will be able to kill all its subprocesses
    @app_pid = spawn(application, pgroup: true)
    wait_for_port(@app_host, @app_port)

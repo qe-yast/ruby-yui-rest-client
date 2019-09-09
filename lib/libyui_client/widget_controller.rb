@@ -20,6 +20,6 @@ def change_widget(action: nil, type: nil, label: nil, id: nil, value: nil)
   params[:label] = label if label
   params[:type] = type if type
   params[:value] = value if value
-  puts params 
+ 
   send_request(:post, "/widgets", params)
 end
