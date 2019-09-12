@@ -2,6 +2,7 @@
 
 require 'timeout'
 require 'socket'
+require 'rainbow'
 
 module LibyuiClient
   # default timeout for process
@@ -42,68 +43,72 @@ module LibyuiClient
   # start the application in background
   # @param application [String] the command to start
   def self.start_app(application)
-    @app_host = 'localhost'
-    @app_port = set_port
+    @@app_host = 'localhost'
+    @@app_port = set_port
 
     # another app already running?
-    if port_open?(@app_host, @app_port)
-      raise "The port #{@app_host}:#{@app_port} is already open!"
+    if port_open?(@@app_host, @@app_port)
+      raise "The port #{@@app_host}:#{@@app_port} is already open!"
     end
 
     puts "Starting #{application}..." if ENV['DEBUG']
     # create a new process group so easily we will be able to kill all its subprocesses
-    @app_pid = spawn(application, pgroup: true)
-    wait_for_port(@app_host, @app_port)
+    @@app_pid = spawn(application, pgroup: true)
+    wait_for_port(@@app_host, @@app_port)
+    puts Rainbow("launches application #{application}").green
   end
 
   # attach to an already running application
   # @param host [String] the host name ("localhost" when running on the same machine)
   def self.attach(host, port)
-    @app_host = host
-    @app_port = port
+    @@app_host = host
+    @@app_port = port
 
     # is the app running?
-    unless port_open?(@app_host, @app_port)
-      raise "Cannot attach to #{@app_host}:#{@app_port}!"
+    unless port_open?(@@app_host, @@app_port)
+      raise "Cannot attach to #{@@app_host}:#{@@app_port}!"
     end
   end
 
+  # TODO: Method not tested
   def self.wait_finished_app(seconds)
-    raise 'Unknown process PID' unless @app_pid
+    raise 'Unknown process PID' unless @@app_pid
 
     timeout = seconds.to_i
     timeout = DEFAULT_TIMEOUT_PROCESS if timeout == 0
 
     Timeout.timeout(timeout) do
-      Process.wait(@app_pid)
+      Process.wait(@@app_pid)
     end
   end
 
+  # TODO: Method not tested
   # kill the testing process if it is still running after finishing a scenario,
   # use the @keep_running tag to avoid killing the process
   def self.kill_app
-    if @app_pid
+    if @@app_pid
       begin
         (1..5).each do |_i|
-          Process.waitpid(@app_pid, Process::WNOHANG)
+          Process.waitpid(@@app_pid, Process::WNOHANG)
           sleep(1)
         end
 
-        Process.waitpid(@app_pid, Process::WNOHANG)
+        Process.waitpid(@@app_pid, Process::WNOHANG)
         puts 'The process is still running, sending TERM signal...'
         # the minus flag sends the signal to the whole process group
-        Process.kill('-TERM', @app_pid)
+        Process.kill('-TERM', @@app_pid)
         sleep(5)
-        Process.waitpid(@app_pid, Process::WNOHANG)
+        Process.waitpid(@@app_pid, Process::WNOHANG)
         puts 'The process is still running, sending KILL signal...'
-        Process.kill('-KILL', @app_pid)
+        Process.kill('-KILL', @@app_pid)
       rescue Errno::ECHILD, Errno::ESRCH
         # the process has already exited
-        @app_pid = nil
+        @@app_pid = nil
       end
     end
   end
 
+  # TODO: use aruba instead
   # optionally allow a short delay between the steps to watch the UI changes
   def self.add_step_delay
     delay = ENV['STEP_DELAY'].to_f

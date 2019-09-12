@@ -1,43 +1,24 @@
-# frozen_string_literal: true
 
 RSpec.describe LibyuiClient do
-  after(:each) do
-    LibyuiClient.add_step_delay
-  end
   it 'has a version number' do
     expect(LibyuiClient::VERSION).not_to be nil
   end
-  it "launches application '/usr/sbin/yast2 host'" do
+  it "writes IP Address, Hostname and Host Aliases to /etc/hosts" do
     expect(LibyuiClient.start_app('/usr/sbin/yast2 host')).to be nil
-  end
-  it "checks dialog heading is 'Host Configuration'" do
-    expect(LibyuiClient.check_dialog_heading).to eq 'Host Configuration'
-  end
-  it "clicks on button 'Add'" do
-    expect(LibyuiClient.click_button(id: 'add')).to be nil
-  end
-  it 'displays a pop-up' do
-    expect(LibyuiClient.is_popup_displayed).to be nil
-  end
-  it "fills in IP Address input with '192.168.3.3'" do
-    expect(LibyuiClient.type_text(id: 'host', value: '192.168.3.3')).to be nil
-  end
-  it "fills in Hostname input with 'awesome.hostname'" do
-    expect(LibyuiClient.type_text(id: 'name', value: 'awesome.hostname')).to be nil
-  end
-  it "fills in Host Aliases input with 'cool.hostname'" do
-    expect(LibyuiClient.type_text(id: 'aliases', value: 'cool.hostname')).to be nil
-  end
-  it "clicks on button 'OK'" do
-    expect(LibyuiClient.click_button(id: 'ok')).to be nil
-  end
-  it "checks row added containing '192.168.3.3'" do
-    expect(LibyuiClient.check_table_row(value: '192.168.3.3')).to be nil
-  end
-  it "clicks on button 'OK'" do
-    expect(LibyuiClient.click_button(id: 'next')).to be nil
-  end
-  it 'runs command to check new hostname is added to /etc/hosts' do
-    expect(LibyuiClient.run_command(command: "grep '^192.168.3.3.*awesome.hostname.*cool.hostname$' /etc/hosts > /dev/null")).to be nil
+    #expect(LibyuiClient.attach('localhost', 14155)).to be nil 
+    expect(LibyuiClient.find_widget_by_id(id: 'wizard', class_name: Wizard).debug_label). to eq 'Host Configuration'
+    LibyuiClient.find_widget_by_id(id: 'add', class_name: Button).click
+    LibyuiClient.find_widget_by_type(class_name: Popup)
+    expect(LibyuiClient.find_widget_by_id(id: 'host', class_name: TextBox).type(value: '192.168.3.3').value).to eq("192.168.3.3")
+    expect(LibyuiClient.find_widget_by_id(id: 'name', class_name: TextBox).type(value: 'awesome.hostname').value).to eq("awesome.hostname")
+    expect(LibyuiClient.find_widget_by_id(id: 'aliases', class_name: TextBox).type(value: 'aliases.hostname').value).to eq("aliases.hostname")
+    LibyuiClient.find_widget_by_id(id: 'ok', class_name: Button).click
+    table = LibyuiClient.find_widget_by_id(id: 'table', class_name: Table)
+    expect(table.header).to contain_exactly('IP Address', 'Hostnames', 'Host Aliases')
+    expect(table.search_row('Hostnames': 'awesome.hostname', 'IP Address': '192.168.3.3')).to eq(['192.168.3.3', 'awesome.hostname', 'aliases.hostname'])
+    expect(table.search_row('Hostnames': 'localhost')).to eq(['127.0.0.1', 'localhost', ''])
+    expect(table.search_row('Host Aliases': 'aliases.hostname', 'Hostnames': 'awesome.hostname', 'IP Address': '192.168.3.3')).to eq (['192.168.3.3', 'awesome.hostname', 'aliases.hostname'])
+    LibyuiClient.find_widget_by_id(id: 'next', class_name: Button).click
+    # TODO: check with aruba content of file
   end
 end
