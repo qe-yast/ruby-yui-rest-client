@@ -8,36 +8,44 @@ require 'libyui_client/rest_api_client'
 
 # Client to interact with YAST UI rest api framework for integration testing
 module LibyuiClient
+  
   WIDGET_TYPE = {
-    'Popup' => 'YDialog'
+    'YQWizardButton' => Button,
+    'YPushButton' => Button,
+    'YInputField' => TextBox,
+    'YTable' => Table,
+    'YWizard' => Wizard,
+    'YDialog' => Dialog,
+    'YCheckBox' => CheckBox,
+    'YComboBox' => ComboBox,
+    'YRadioButton' => RadioButton
   }.freeze
 
-  def self.find_widget_by_id(id:, class_name:, timeout: 0)
-    widget = nil
-    id.tr('\"', '')
+  def self.find_widget(id: nil, label: nil, type: nil, 
+                       debug_label: nil, inner_type: nil,
+                       timeout: 0)
+    raise "Use id, label or type to filter a widget" if [id, label, type].none?
+    json = nil
     timed_retry(timeout) do
-      widget = find_widget(id: id)
+      params = {}
+      params[:id] = id if id
+      params[:label] = label if label
+      params[:type] = type if type
+      json = send_request(:get, '/widgets', params).first
+      if debug_label
+        json['debug_label'] == debug_label
+      elsif inner_type
+        json['type'] == inner_type
+      else
+        json
+      end
     end
-    class_name.new(widget)
+    json_class = json["class"]
+    app_class = WIDGET_TYPE.fetch(json_class) { 
+        raise "#{json_class} does not map to any application control" }
+    app_class.new(json)
   end
-
-  def self.find_widget_by_id_label(id:, label:, class_name:, timeout: 0)
-    widget = nil
-    timed_retry(timeout) do
-      widget = find_widget(id: id)
-      widget['debug_label'] == label
-    end
-    class_name.new(widget)
-  end
-
-  def self.find_widget_by_type(class_name:, timeout: 0)
-    widget = nil
-    timed_retry(timeout) do
-      widget = find_widget(type: WIDGET_TYPE[class_name.to_s])
-    end
-    class_name.new(widget)
-  end
-
+  
   # TODO: use aruba
   def self.run_command(command:, timeout: 0)
     timed_retry(timeout) do

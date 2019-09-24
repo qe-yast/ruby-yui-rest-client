@@ -4,54 +4,40 @@ RSpec.describe LibyuiClient do
   it 'has a version number' do
     expect(LibyuiClient::VERSION).not_to be nil
   end
+  
   it 'writes IP Address, Hostname and Host Aliases to /etc/hosts' do
-    expect(LibyuiClient.start_app('/usr/sbin/yast2 host')).to be nil
-    # expect(LibyuiClient.attach('localhost', 14155)).to be nil
-    expect(LibyuiClient.find_widget_by_id_label(id: 'wizard',
-                                                label: 'Host Configuration',
-                                                class_name: Wizard))
-      .to be_kind_of(Wizard)
-    LibyuiClient.find_widget_by_id(id: 'add', class_name: Button).click
-    LibyuiClient.find_widget_by_type(class_name: Popup)
-    expect(LibyuiClient.find_widget_by_id(id: 'host',
-                                          class_name: TextBox)
-      .type(value: '192.168.3.3').value).to eq('192.168.3.3')
-    expect(LibyuiClient.find_widget_by_id(id: 'name', class_name: TextBox)
-      .type(value: 'awesome.hostname').value).to eq('awesome.hostname')
-    expect(LibyuiClient.find_widget_by_id(id: 'aliases', class_name: TextBox)
-      .type(value: 'aliases.hostname').value).to eq('aliases.hostname')
-    LibyuiClient.find_widget_by_id(id: 'ok', class_name: Button).click
-    table = LibyuiClient.find_widget_by_id(id: 'table', class_name: Table)
-    expect(table.header).to eq(['IP Address', 'Hostnames', 'Host Aliases'])
-    expect(table.search_row('Hostnames': 'awesome.hostname',
-                            'IP Address': '192.168.3.3'))
-      .to eq(['192.168.3.3', 'awesome.hostname', 'aliases.hostname'])
-    expect(table.search_row('Hostnames': 'localhost'))
-      .to eq(['127.0.0.1', 'localhost', ''])
-    expect(table.search_row('Host Aliases': 'aliases.hostname',
-                            'Hostnames': 'awesome.hostname',
-                            'IP Address': '192.168.3.3'))
-      .to eq ['192.168.3.3', 'awesome.hostname', 'aliases.hostname']
-    LibyuiClient.find_widget_by_id(id: 'next', class_name: Button).click
+    LibyuiClient.start_app('/usr/sbin/yast2 host')
+    #LibyuiClient.attach('localhost', 14155)
+    LibyuiClient.find_widget(id: 'wizard', debug_label: 'Host Configuration')
+    LibyuiClient.find_widget(id: 'add').click
+    LibyuiClient.find_widget(type: 'YDialog', inner_type: 'popup')
+    input_host = LibyuiClient.find_widget(id: 'host')
+    expect(input_host.type('192.168.3.3').value).to eq('192.168.3.3')
+    input_hostname = LibyuiClient.find_widget(id: 'name')
+    expect(input_hostname.type('awesome.hostname').value).to eq('awesome.hostname')
+    input_aliases = LibyuiClient.find_widget(id: 'aliases')
+    expect(input_aliases.type('aliases.hostname').value).to eq('aliases.hostname')
+    LibyuiClient.find_widget(id: 'ok').click
+    table = LibyuiClient.find_widget(id: 'table')
+    table.select_row(value: '192.168.3.3')
+    #table.select_row(value: 'awesome.hostname', column: '1')
+    LibyuiClient.find_widget(id: 'next').click
     # TODO: check with aruba content of file
   end
   it 'select ComboBox item and toggles CheckBox in yast2 bootloader module' do
-    expect(LibyuiClient.start_app('/usr/sbin/yast2 bootloader')).to be nil
-    # expect(LibyuiClient.attach('localhost', 14155)).to be nil
-    expect(LibyuiClient.find_widget_by_id_label(id: 'wizard',
-                                                label: 'Boot Loader Settings',
-                                                class_name: Wizard))
-      .to be_kind_of(Wizard)
-    expect(LibyuiClient.find_widget_by_id(id: '"Bootloader::LoaderTypeWidget"',
-                                          class_name: ComboBox)
-      .select('GRUB2 for EFI').value).to eq('GRUB2 for EFI')
-    expect(LibyuiClient.find_widget_by_id(id: 'boot', class_name: CheckBox)
-      .toggle.value).to be true
+    LibyuiClient.start_app('/usr/sbin/yast2 bootloader')
+    #LibyuiClient.attach('localhost', 14155)
+    LibyuiClient.find_widget(id: 'wizard', debug_label: 'Boot Loader Settings')
+    combo = LibyuiClient.find_widget(id: '"Bootloader::LoaderTypeWidget"')
+    expect(combo.select('GRUB2 for EFI').value).to eq('GRUB2 for EFI')
+    check = LibyuiClient.find_widget(id: 'boot')
+    expect(check.toggle.value).to be true
   end
   it 'select RadioButton in yast2 lan' do
-    expect(LibyuiClient.attach('localhost', 14_155)).to be nil
-    expect(LibyuiClient.find_widget_by_id(id: '"tap"', class_name: RadioButton)
-      .select.value).to be true
+    #LibyuiClient.start_app('/usr/sbin/yast2 lan')
+    LibyuiClient.attach('localhost', 14155)
+    radio_tap = LibyuiClient.find_widget(id: '"tap"')
+    expect(radio_tap.select.value).to be true
   end
 end
 

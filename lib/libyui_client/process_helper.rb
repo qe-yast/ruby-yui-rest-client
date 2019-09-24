@@ -57,7 +57,7 @@ module LibyuiClient
     # to kill all its subprocesses
     @@app_pid = spawn(application, pgroup: true)
     wait_for_port(@@app_host, @@app_port)
-    puts Rainbow("launches application #{application}").green
+    puts Rainbow("\tlaunches application '#{application}'").blue
   end
 
   # attach to an already running application
