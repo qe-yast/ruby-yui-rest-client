@@ -2,19 +2,6 @@
 
 # Client to interact with YAST UI rest api framework for integration testing
 module LibyuiClient
-#  def self.find_widgets(id: nil, label: nil, type: nil)
-#    params = {}
-#    params[:id] = id if id
-#    params[:label] = label if label
-#    params[:type] = type if type
-#
-#    send_request(:get, '/widgets', params)
-#  end
-#
-#  def self.find_widget(type: nil, label: nil, id: nil)
-#    find_widgets(type: type, label: label, id: id).first
-#  end
-
   def self.change_widget(action: nil, id: nil, type: nil, label: nil,
                         value: nil, column: nil)
     params = {}
