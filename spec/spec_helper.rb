@@ -2,6 +2,7 @@
 
 require 'bundler/setup'
 require 'libyui_client'
+require 'aruba/rspec'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

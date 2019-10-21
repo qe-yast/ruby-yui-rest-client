@@ -43,13 +43,7 @@ module LibyuiClient
     json_class = json["class"]
     app_class = WIDGET_TYPE.fetch(json_class) { 
         raise "#{json_class} does not map to any application control" }
+    LibyuiClient.add_step_delay
     app_class.new(json)
-  end
-  
-  # TODO: use aruba
-  def self.run_command(command:, timeout: 0)
-    timed_retry(timeout) do
-      system(command)
-    end
-  end
+  end  
 end

@@ -70,30 +70,25 @@ module LibyuiClient
     raise "Cannot attach to #{@@app_host}:#{@@app_port}!" unless port_open?(@@app_host, @@app_port)
   end
 
-  # TODO: Method not tested
-  def self.wait_finished_app(seconds)
+  def self.wait_finished_app(seconds: 0)
     raise 'Unknown process PID' unless @@app_pid
-
     timeout = seconds.to_i
     timeout = DEFAULT_TIMEOUT_PROCESS if timeout.zero?
-
+    
     Timeout.timeout(timeout) do
       Process.wait(@@app_pid)
     end
   end
 
-  # TODO: Method not tested
   # kill the testing process if it is still running after finishing a scenario,
   # use the @keep_running tag to avoid killing the process
   def self.kill_app
     return unless @@app_pid
-
     begin
       (1..5).each do |_i|
         Process.waitpid(@@app_pid, Process::WNOHANG)
         sleep(1)
       end
-
       Process.waitpid(@@app_pid, Process::WNOHANG)
       puts 'The process is still running, sending TERM signal...'
       # the minus flag sends the signal to the whole process group
@@ -108,7 +103,6 @@ module LibyuiClient
     end
   end
 
-  # TODO: use aruba instead
   # optionally allow a short delay between the steps to watch the UI changes
   def self.add_step_delay
     delay = ENV['STEP_DELAY'].to_f
