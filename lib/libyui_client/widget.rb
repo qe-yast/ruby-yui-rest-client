@@ -53,7 +53,7 @@ class Table
   end
 
   def select_row(value:, column: nil)
-    myvar = LibyuiClient.change_widget(action: 'select_table', id: @id,
+    myvar = LibyuiClient.change_widget(action: 'select', id: @id,
                                value: value, column: column)
     #TODO: check for error when implemented in libyui-rest-api
     puts Rainbow("\tselects row #1 with value '#{value}' in table '#{@id}'").blue

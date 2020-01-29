@@ -54,4 +54,3 @@ RSpec.describe LibyuiClient, :type => :aruba do
 #    expect(radio_tap.select.value).to be true
 #  end
 end
-
