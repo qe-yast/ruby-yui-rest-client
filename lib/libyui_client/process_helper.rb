@@ -3,17 +3,27 @@
 require 'timeout'
 require 'socket'
 require 'rainbow'
+require 'libyui_client/config_reader'
 
 # Client to interact with YAST UI rest api framework for integration testing
 module LibyuiClient
   # default timeout for process
   DEFAULT_TIMEOUT_PROCESS = 20
 
+  # set the host for the application under control
+  def self.set_host
+    ENV['YUI_HTTP_HOST'] ||= read_config_value('YUI_HTTP_HOST')
+  end
+
   # set the application introspection port for communication
   def self.set_port
-    # 14155 is currently an unassigned port
-    ENV['YUI_HTTP_PORT'] ||= '14155'
+    ENV['YUI_HTTP_PORT'] ||= read_config_value('YUI_HTTP_PORT')
     ENV['YUI_HTTP_PORT']
+  end
+
+  # set libyui-rest-api API version
+  def self.set_api_version
+    ENV['YUI_API_VERSION'] ||= read_config_value('YUI_API_VERSION')
   end
 
   # is the target port open?
@@ -44,8 +54,9 @@ module LibyuiClient
   # start the application in background
   # @param application [String] the command to start
   def self.start_app(application)
-    @@app_host = 'localhost'
+    @@app_host = set_host
     @@app_port = set_port
+    @@api_version = set_api_version
 
     # another app already running?
     if port_open?(@@app_host, @@app_port)

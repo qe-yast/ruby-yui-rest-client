@@ -9,6 +9,7 @@ RSpec.describe LibyuiClient, :type => :aruba do
   context "Running non-destructive scenarios:" do
     it "yast2 host" do
       LibyuiClient.start_app('/usr/sbin/yast2 host')
+      LibyuiClient.check_api_version
       #LibyuiClient.attach('localhost', 14155)
       LibyuiClient.find_widget(id: 'wizard', debug_label: 'Host Configuration')
       LibyuiClient.find_widget(id: 'add').click

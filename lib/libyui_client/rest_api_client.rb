@@ -32,6 +32,15 @@ module LibyuiClient
     end
   end
 
+  def self.check_api_version
+    res = send_request(:get, '/version', {})
+    unless res['api_version'] == "#{@@api_version}"
+      raise 'libyui-rest-api API version does not correspond to the version the Client expects.' +
+            "\nRest API version: " + res['api_version'] +
+            "\nClient expects: #{@@api_version}"
+    end
+  end
+
   def self.send_request(method, path, params = {})
     uri = URI("http://#{@@app_host}:#{@@app_port}")
     uri.path = path
@@ -69,6 +78,6 @@ module LibyuiClient
     params[:type] = type if type
     params[:value] = value if value
 
-    send_request(:post, '/widgets', params)
+    send_request(:post, "/#{@@api_version}/widgets", params)
   end
 end

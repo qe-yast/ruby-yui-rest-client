@@ -7,6 +7,9 @@
 /spec/reports/
 /tmp/
 .vendor
+.idea/
+.rakeTasks
+y2signal.log
 
 # rspec failure tracking
 .rspec_status

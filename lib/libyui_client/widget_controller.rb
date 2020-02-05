@@ -12,6 +12,6 @@ module LibyuiClient
     params[:value] = value if value
     params[:column] = column if column
 
-    send_request(:post, '/widgets', params)
+    send_request(:post, "/#{@@api_version}/widgets", params)
   end
 end

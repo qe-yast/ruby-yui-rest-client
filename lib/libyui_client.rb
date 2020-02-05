@@ -31,7 +31,7 @@ module LibyuiClient
       params[:id] = id if id
       params[:label] = label if label
       params[:type] = type if type
-      json = send_request(:get, '/widgets', params).first
+      json = send_request(:get, "/#{@@api_version}/widgets", params).first
       if debug_label
         json['debug_label'] == debug_label
       elsif inner_type
