@@ -7,7 +7,7 @@ require 'libyui_client/version'
 Gem::Specification.new do |spec|
   spec.name          = 'libyui_client'
   spec.version       = LibyuiClient::VERSION
-  spec.authors       = ['Joaquin Rivera']
+  spec.authors       = ['Joaquin Rivera', 'Oleksandr Orlov']
   # spec.email         = ["TODO: Write your email address"]
 
   spec.summary       = 'Client for libyui applications.'
