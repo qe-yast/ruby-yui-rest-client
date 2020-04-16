@@ -1,0 +1,2 @@
+class HttpClient
+end
