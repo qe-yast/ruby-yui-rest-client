@@ -2,7 +2,7 @@
 
 require 'rspec'
 
-RSpec.shared_context 'WidgetsContext' do
+RSpec.shared_context 'WidgetsCommon' do
   before(:all) do
     LibyuiClient.timeout = 0
     LibyuiClient.interval = 0
@@ -10,7 +10,7 @@ RSpec.shared_context 'WidgetsContext' do
   end
 
   # Common Request/Response parts
-  let(:widgets_url) { 'http://www.example.com:9999/v1/widgets' }
+  let(:widgets_url) { 'http://www.example.com:9999/widgets' }
   let(:id) { { id: 'libyui' } }
   let(:query_id) { { query: id } }
   let(:status404) { { status: 404 } }
