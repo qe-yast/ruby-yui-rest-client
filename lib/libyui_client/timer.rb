@@ -8,7 +8,7 @@ module LibyuiClient
       return yield if timeout.zero?
 
       end_time = Time.now.to_f + timeout
-      while Time.now.to_i <= end_time
+      while Time.now.to_f <= end_time
         yield
         sleep interval
       end

@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
 module LibyuiClient
-  module Filter
+  module Validate
     module_function
 
-    FILTERS = %i[id label type].freeze
+    def filter(filter)
+      filters = %i[id label type]
+      raise ArgumentError, "Invalid filter format: #{filter.inspect}. Hash is expected." unless filter.is_a? Hash
 
-    def validate(filter)
-      raise ArgumentError, "invalid filter format: #{filter.inspect}. Hash is expected (e.g. find(id: \"some_id\"))." unless filter.is_a? Hash
+      filter.delete_if { |_key, value| value.nil? }
 
-      filter.each_key { |key| raise ArgumentError, "unsupported filter type is used: #{key.inspect}" unless FILTERS.include?(key.to_sym) }
-
-      filter
+      filter.each do |key, _value|
+        raise ArgumentError, "Unsupported filter type is used: #{key.inspect}" unless filters.include?(key.to_sym)
+      end
     end
   end
 end

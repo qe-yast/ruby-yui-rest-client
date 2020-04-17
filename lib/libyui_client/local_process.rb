@@ -1,66 +1,38 @@
 # frozen_string_literal: true
 
-require 'timeout'
-require 'socket'
-
 # Client to interact with YAST UI rest api framework for integration testing
 module LibyuiClient
   class LocalProcess
     # default timeout for process
-    DEFAULT_TIMEOUT_PROCESS = 20
+    DEFAULT_TIMEOUT_PROCESS = 2
 
     # start the application in background
     # @param application [String] the command to start
-    def self.start_app(application)
+    def start_app(application)
       @app_host = 'localhost'
       @app_port = port
 
       # another app already running?
-      if port_open?(@app_host, @app_port)
-        raise "The port #{@app_host}:#{@app_port} is already open!"
-      end
+      raise "The port #{@app_host}:#{@app_port} is already open!" if port_open?(@app_host, @app_port)
 
       LibyuiClient.logger.debug("Starting #{application}...")
       # create a new process group so easily we will be able
-      # to kill all its subprocesses
+      # to kill all its sub-processes
       @app_pid = spawn(application, pgroup: true)
       wait_for_port(@app_host, @app_port)
-      LibyuiClient.logger.debug("\tlaunches application '#{application}'")
+      LibyuiClient.logger.debug("App started: '#{application}'")
     end
 
-    def wait_finished_app(seconds: 0)
-      raise 'Unknown process PID' unless @app_pid
-
-      timeout = seconds.to_i
-      timeout = DEFAULT_TIMEOUT_PROCESS if timeout.zero?
-
-      Timeout.timeout(timeout) do
-        Process.wait(@app_pid)
-      end
-    end
-
-    # kill the testing process if it is still running after finishing a scenario,
-    # use the @keep_running tag to avoid killing the process
+    # kill the process if it is still running after finishing a scenario
     def kill_app
       return unless @app_pid
 
-      begin
-        (1..5).each do |_i|
-          Process.waitpid(@app_pid, Process::WNOHANG)
-          sleep(1)
-        end
-        Process.waitpid(@app_pid, Process::WNOHANG)
-        puts 'The process is still running, sending TERM signal...'
-        # the minus flag sends the signal to the whole process group
-        Process.kill('-TERM', @app_pid)
-        sleep(5)
-        Process.waitpid(@app_pid, Process::WNOHANG)
-        puts 'The process is still running, sending KILL signal...'
-        Process.kill('-KILL', @app_pid)
-      rescue Errno::ECHILD, Errno::ESRCH
-        # the process has already exited
-        @app_pid = nil
-      end
+      Process.waitpid(@app_pid, Process::WNOHANG)
+      LibyuiClient.logger.debug("Sending KILL signal for PID #{@app_pid}")
+      Process.kill('-KILL', @app_pid)
+    rescue Errno::ECHILD, Errno::ESRCH
+      # the process has already exited
+      @app_pid = nil
     end
 
     private
@@ -71,7 +43,7 @@ module LibyuiClient
     end
 
     # is the target port open?
-    # @param host [Integer] the host to connect to
+    # @param host [String] the host to connect to
     # @param port [Integer] the port number
     # @return [Boolean] true if the port is open, false otherwise
     def port_open?(host, port)
@@ -82,16 +54,13 @@ module LibyuiClient
     end
 
     # wait until the specified port is open or until the timeout is reached
-    # @param host [Integer] the host to connect to
+    # @param host [String] the host to connect to
     # @param port [Integer] the port number
-    # @raise Timeout::Error when the port is not opened in time
+    # @raise LibyuiClient::Error::TimeoutError if the port is not opened in time
     def wait_for_port(host, port)
-      wait = Wait.new(DEFAULT_TIMEOUT_PROCESS, 1)
-      wait.timed_retry do
-        loop do
-          LibyuiClient.logger.debug("Waiting for #{host}:#{port}...")
-          break if port_open?(host, port)
-        end
+      Wait.until(timeout: LibyuiClient.timeout, interval: LibyuiClient.interval) do
+        LibyuiClient.logger.debug("Waiting for #{host}:#{port}...")
+        port_open?(host, port)
       end
     end
 
