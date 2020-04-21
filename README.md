@@ -1,38 +1,135 @@
 # LibyuiClient
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/libyui_client`. To experiment with that code, run `bin/console` for an interactive prompt.
+Ruby gem to interact with YaST applications via libyui-rest-api.
 
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
-
-Add this line to your application's Gemfile:
+Usage example:
 
 ```ruby
-gem 'libyui_client'
+require 'libyui_client'
+
+app = LibyuiClient::App.new
+app.connect(host: 'localhost', port: '9999')
+
+button = app.button(id: 'settime').click
 ```
 
-And then execute:
+## Installing libyui_client
 
-    $ bundle
+As soon as the gem is in development, run the following command from command line:
+```
+gem "libyui_client", :git => "git@github.com:jknphy/libyui_client.git"
+```
 
-Or install it yourself as:
+Now need to require gem in order to use it.
 
-    $ gem install libyui_client
+## Connect to the running app
 
-## Usage
+It is assumed the application is running on `localhost:9999`.
+Then the code to connect to the application looks like:
 
-TODO: Write usage instructions here
+```ruby
+require 'libyui_client'
 
-## Development
+app = LibyuiClient::App.new
+app.connect(host: 'localhost', port: '9999')
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+## Supported widgets
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+libyui_client supports different types of widgets.
 
-## Contributing
+Here are examples of usage:
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/libyui_client.
+### Button
+
+```ruby
+app = LibyuiClient::App.new.connect(host: 'localhost', port: '9999')
+app.button(id: 'test_id').click  # clicks the button with id 'test_id'
+app.button(label: 'test_label', id: 'test_id').debug_label # get 'debug_label' value
+```
+
+### Checkbox
+
+```ruby
+app = LibyuiClient::App.new.connect(host: 'localhost', port: '9999')
+app.checkbox(id: 'test_id').check  # checks the checkbox with id 'test_id'
+app.checkbox(id: 'test_id').uncheck  # unchecks the checkbox with id 'test_id'
+app.checkbox(id: 'test_id').toggle # toggles the checkbox with id 'test_id'
+app.checkbox(label: 'test_label', id: 'test_id').checked? # gets the state of checkbox
+```
+
+### Combobox
+
+```ruby
+app = LibyuiClient::App.new.connect(host: 'localhost', port: '9999')
+app.combobox(id: 'test_id').select  # selects the checkbox with id 'test_id'
+app.combobox(id: 'test_id').items  # gets all available items for combobox with id 'test_id'
+app.combobox(id: 'test_id').selected_item # gets the selected item
+```
+
+### Radiobutton
+
+```ruby
+app = LibyuiClient::App.new.connect(host: 'localhost', port: '9999')
+app.radiobutton(id: 'test_id').select  # selects the radiobutton with id 'test_id'
+app.radiobutton(id: 'test_id').selected?  # gets the state of radiobutton
+```
+
+### Table
+
+```ruby
+app = LibyuiClient::App.new.connect(host: 'localhost', port: '9999')
+app.table(id: 'test_table').select_row(value: 'test.item.1', column_id: 0)  # selects the row in table with test.item.1
+```
+
+### Textbox
+
+```ruby
+app = LibyuiClient::App.new.connect(host: 'localhost', port: '9999')
+app.textbox(id: 'test_id').set('Test Text')  # sets "Test Text" to textbox with id 'test_id'
+app.textbox(id: 'test_id').value  # gets value from textbox
+```
+
+## Filters
+
+libyui_client supports the same filters, as libyui-rest-api provides:
+
+  * id - widget ID serialized as string, might include special characters like backtick (\`)
+  * label - widget label as currently displayed (i.e. translated!)
+  * type - widget class
+
+## Waits
+
+### Default timeout and interval
+
+All the actions against widgets in libyui_client are made with default timeout and interval.
+Default timeout is 5 sec, default interval is 0.5 sec. 
+That means libyui_client will repeat sending requests to YaST application every 0.5 seconds until 5 seconds 
+timeout will be reached. This default wait is needed because widgets may not be loaded immediately while trying to 
+interact with them (e.g. when navigating from one screen to another).
+
+The default timeout and interval can be changed by the following:
+
+```ruby
+LibyuiClient.timeout = 10
+LibyuiClient.interval = 1
+```
+
+### Specific waits
+
+All the widgets include Waitable module, which contains special methods to allow explicit waiting: 
+`wait_until` and `wait_while`.
+These methods can be used when it is needed to wait until some property of the widget will be changed.
+
+For example, wait until button will be enabled and click on it:
+
+```ruby
+# with #to_proc syntax:
+app.button(id: 'test_id').wait_until(&:enabled?).click
+
+# without #to_proc syntax:
+app.button(id: 'test_id').wait_until{ |button| button.enabled? }.click
+```
 
 ## License
 
