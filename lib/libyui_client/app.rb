@@ -2,20 +2,14 @@
 
 module LibyuiClient
   class App
-    attr_reader :host, :port
-
-    def initialize
-      @http_client = Http::LibyuiHttpClient.new(self)
-    end
-
-    # Used to specify the host and port for the application where all requests will be sent.
+    # Used to initialize main entry point of LibyuiClient and set host and port
+    # for the application under control.
     # @param host [String] host address (e.g. 'localhost', '192.168.0.1')
     # @param port [String] port opened for communication (e.g. '9999')
-    # @return [App]
-    def connect(host:, port:)
+    def initialize(host:, port:)
       @host = host
       @port = port
-      self
+      @http_client = Http::LibyuiHttpClient.new(host: host, port: port)
     end
 
     # Initializes new instance of Button with the filter provided.

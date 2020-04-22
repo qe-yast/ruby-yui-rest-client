@@ -7,10 +7,9 @@ Usage example:
 ```ruby
 require 'libyui_client'
 
-app = LibyuiClient::App.new
-app.connect(host: 'localhost', port: '9999')
-
-button = app.button(id: 'settime').click
+app = LibyuiClient::App.new(host: 'localhost', port: '9999')
+button = app.button(id: 'settime')
+button.click
 ```
 
 ## Installing libyui_client
@@ -22,16 +21,15 @@ gem "libyui_client", :git => "git@github.com:jknphy/libyui_client.git"
 
 Now need to require gem in order to use it.
 
-## Connect to the running app
+## Initialize the app under control
 
 It is assumed the application is running on `localhost:9999`.
-Then the code to connect to the application looks like:
+Then the code to initialize the application looks like:
 
 ```ruby
 require 'libyui_client'
 
-app = LibyuiClient::App.new
-app.connect(host: 'localhost', port: '9999')
+app = LibyuiClient::App.new(host: 'localhost', port: '9999')
 ```
 
 ## Supported widgets
@@ -43,7 +41,7 @@ Here are examples of usage:
 ### Button
 
 ```ruby
-app = LibyuiClient::App.new.connect(host: 'localhost', port: '9999')
+app = LibyuiClient::App.new(host: 'localhost', port: '9999')
 app.button(id: 'test_id').click  # clicks the button with id 'test_id'
 app.button(label: 'test_label', id: 'test_id').debug_label # get 'debug_label' value
 ```
@@ -51,7 +49,7 @@ app.button(label: 'test_label', id: 'test_id').debug_label # get 'debug_label' v
 ### Checkbox
 
 ```ruby
-app = LibyuiClient::App.new.connect(host: 'localhost', port: '9999')
+app = LibyuiClient::App.new(host: 'localhost', port: '9999')
 app.checkbox(id: 'test_id').check  # checks the checkbox with id 'test_id'
 app.checkbox(id: 'test_id').uncheck  # unchecks the checkbox with id 'test_id'
 app.checkbox(id: 'test_id').toggle # toggles the checkbox with id 'test_id'
@@ -61,7 +59,7 @@ app.checkbox(label: 'test_label', id: 'test_id').checked? # gets the state of ch
 ### Combobox
 
 ```ruby
-app = LibyuiClient::App.new.connect(host: 'localhost', port: '9999')
+app = LibyuiClient::App.new(host: 'localhost', port: '9999')
 app.combobox(id: 'test_id').select  # selects the checkbox with id 'test_id'
 app.combobox(id: 'test_id').items  # gets all available items for combobox with id 'test_id'
 app.combobox(id: 'test_id').selected_item # gets the selected item
@@ -70,7 +68,7 @@ app.combobox(id: 'test_id').selected_item # gets the selected item
 ### Radiobutton
 
 ```ruby
-app = LibyuiClient::App.new.connect(host: 'localhost', port: '9999')
+app = LibyuiClient::App.new(host: 'localhost', port: '9999')
 app.radiobutton(id: 'test_id').select  # selects the radiobutton with id 'test_id'
 app.radiobutton(id: 'test_id').selected?  # gets the state of radiobutton
 ```
@@ -78,14 +76,13 @@ app.radiobutton(id: 'test_id').selected?  # gets the state of radiobutton
 ### Table
 
 ```ruby
-app = LibyuiClient::App.new.connect(host: 'localhost', port: '9999')
+app = LibyuiClient::App.new(host: 'localhost', port: '9999')
 app.table(id: 'test_table').select_row(value: 'test.item.1', column_id: 0)  # selects the row in table with test.item.1
 ```
 
 ### Textbox
-
 ```ruby
-app = LibyuiClient::App.new.connect(host: 'localhost', port: '9999')
+app = LibyuiClient::App.new(host: 'localhost', port: '9999')
 app.textbox(id: 'test_id').set('Test Text')  # sets "Test Text" to textbox with id 'test_id'
 app.textbox(id: 'test_id').value  # gets value from textbox
 ```

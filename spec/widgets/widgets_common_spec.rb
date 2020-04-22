@@ -6,7 +6,7 @@ RSpec.shared_context 'WidgetsCommon' do
   before(:all) do
     LibyuiClient.timeout = 0
     LibyuiClient.interval = 0
-    @app = LibyuiClient::App.new.connect(host: 'www.example.com', port: '9999')
+    @app = LibyuiClient::App.new(host: 'www.example.com', port: '9999')
   end
 
   # Common Request/Response parts

@@ -3,14 +3,15 @@
 module LibyuiClient
   module Http
     class LibyuiHttpClient
-      def initialize(app)
-        @app = app
+      def initialize(host:, port:)
+        @host = host
+        @port = port
       end
 
       def widget_get(filter, timeout: LibyuiClient.timeout, interval: LibyuiClient.interval)
         res = nil
         Wait.until(timeout: timeout, interval: interval) do
-          uri = HttpClient.compose_uri(@app.host, @app.port, '/widgets', filter)
+          uri = HttpClient.compose_uri(@host, @port, '/widgets', filter)
           res = HttpClient.http_get(uri)
           Response.new(res) if res.is_a?(Net::HTTPOK)
         end
@@ -21,7 +22,7 @@ module LibyuiClient
       def widget_send_action(filter, action, timeout: LibyuiClient.timeout, interval: LibyuiClient.interval)
         res = nil
         Wait.until(timeout: timeout, interval: interval) do
-          uri = HttpClient.compose_uri(@app.host, @app.port, '/widgets',
+          uri = HttpClient.compose_uri(@host, @port, '/widgets',
                                        filter.merge(action))
           res = HttpClient.http_post(uri)
           Response.new(res) if res.code.to_i == 200
