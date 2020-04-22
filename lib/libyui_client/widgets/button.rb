@@ -8,7 +8,7 @@ module LibyuiClient
       # @example Click button with id 'test'
       #   app.button(id: 'test').click
       def click
-        action(action: 'press')
+        action(action: Actions::PRESS)
       end
 
       # Returns fkey value for the button.

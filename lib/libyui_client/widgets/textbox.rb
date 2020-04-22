@@ -9,7 +9,7 @@ module LibyuiClient
       # @example Set text in textbox with id 'test' to 'my value'
       #   app.textbox(id: 'test').set('my value')
       def set(value)
-        action(action: 'enter_text', value: value)
+        action(action: Actions::ENTER_TEXT, value: value)
       end
 
       # Returns text that is currently set for textbox

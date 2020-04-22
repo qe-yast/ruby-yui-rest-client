@@ -17,6 +17,7 @@ require 'libyui_client/http/http_client'
 require 'libyui_client/http/libyui_http_client'
 require 'libyui_client/http/response'
 require 'libyui_client/error'
+require 'libyui_client/actions'
 
 # Client to interact with YAST UI rest api framework for integration testing
 module LibyuiClient

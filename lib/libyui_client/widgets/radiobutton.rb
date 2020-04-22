@@ -8,7 +8,7 @@ module LibyuiClient
       # @example Select radiobutton with id 'test'
       #   app.radiobutton(id: 'test').select
       def select
-        action(action: 'select')
+        action(action: Actions::SELECT)
       end
 
       # Returns the state of radiobutton (selected or not).

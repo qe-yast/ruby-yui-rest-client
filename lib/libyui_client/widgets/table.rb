@@ -30,7 +30,7 @@ module LibyuiClient
       # @example
       #   app.table(id: 'test_table').select_row(value: 'test.item.2', column_id: 0)
       def select_row(value:, column_id:)
-        action(action: 'select', value: value, column: column_id)
+        action(action: Actions::SELECT, value: value, column: column_id)
       end
     end
   end

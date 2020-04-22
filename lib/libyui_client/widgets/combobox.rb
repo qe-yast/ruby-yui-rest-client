@@ -30,7 +30,7 @@ module LibyuiClient
       # @example
       #   app.combobox(id: 'nfs_version').select('Force NFSv3')
       def select(item)
-        action(action: 'select', value: item)
+        action(action: Actions::SELECT, value: item)
       end
 
       # Returns the list of items available to select from combobox.

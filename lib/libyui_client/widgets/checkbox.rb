@@ -8,21 +8,21 @@ module LibyuiClient
       # @example Toggle checkbox with id 'test'
       #   app.checkbox(id: 'test').toggle
       def toggle
-        action(action: 'toggle')
+        action(action: Actions::TOGGLE)
       end
 
       # Sends action to explicitly check the checkbox in UI (regardless of the current state).
       # @example Check checkbox with id 'test'
       #   app.checkbox(id: 'test').check
       def check
-        action(action: 'check')
+        action(action: Actions::CHECK)
       end
 
       # Sends action to explicitly uncheck the checkbox in UI (regardless of the current state).
       # @example Uncheck checkbox with id 'test'
       #   checkbox(id: 'test').uncheck
       def uncheck
-        action(action: 'uncheck')
+        action(action: Actions::UNCHECK)
       end
 
       # Returns the state of checkbox (checked/unchecked).
