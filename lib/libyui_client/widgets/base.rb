@@ -54,7 +54,7 @@ module LibyuiClient
       # but widget does not have a method to return the value.
       # Can be called against any widget.
       # @param property [Symbol] symbolic name of the property to get value for.
-      # @return [Hash] value for property of a widget
+      # @return [Object] value for property of a widget
       # @example Get value of "label" property for button with id "test"
       #   value = app.button(id: 'test').property(:label)
       def property(property)

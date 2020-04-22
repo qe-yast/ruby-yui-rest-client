@@ -5,10 +5,12 @@ module LibyuiClient
     # Class representing a RadioButton in the UI. It can be YRadioButton.
     class Radiobutton < Widgets::Base
       # Sends action to select the radiobutton in UI.
+      # @return [Radiobutton] in case action is successful
       # @example Select radiobutton with id 'test'
       #   app.radiobutton(id: 'test').select
       def select
         action(action: Actions::SELECT)
+        self
       end
 
       # Returns the state of radiobutton (selected or not).

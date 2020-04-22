@@ -7,6 +7,7 @@ module LibyuiClient
       # Sends action to select the item in combobox.
       # @param item [String] item to select in combobox.
       # List of items can be retrieved from JSON "items"->"label" manually or by using 'combobox(filter).items'.
+      # @return [Combobox] in case action is successful
       # @raise LibyuiClient::Error::ItemNotFoundInWidgetError in case value is not found in combobox.
       # @example Select "Force NFSv3" item in combobox with id "nfs_version"
       #   {
@@ -31,6 +32,7 @@ module LibyuiClient
       #   app.combobox(id: 'nfs_version').select('Force NFSv3')
       def select(item)
         action(action: Actions::SELECT, value: item)
+        self
       end
 
       # Returns the list of items available to select from combobox.

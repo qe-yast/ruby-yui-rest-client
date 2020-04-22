@@ -6,10 +6,12 @@ module LibyuiClient
     class Textbox < Widgets::Base
       # Sends action to set the value of textbox
       # @param value [String] text to be set in textbox
+      # @return [Textbox] in case action is successful
       # @example Set text in textbox with id 'test' to 'my value'
       #   app.textbox(id: 'test').set('my value')
       def set(value)
         action(action: Actions::ENTER_TEXT, value: value)
+        self
       end
 
       # Returns text that is currently set for textbox
