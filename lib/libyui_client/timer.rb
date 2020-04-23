@@ -4,7 +4,7 @@ module LibyuiClient
   module Timer
     module_function
 
-    # Execute code block with the interval until timeout reached
+    # Execute code block with the interval until timeout reached.
     # @param timeout [Numeric] how many time in seconds to wait
     # @param interval [Numeric] time in seconds between attempts
     def wait(timeout, interval)

@@ -5,8 +5,8 @@ module LibyuiClient
     class Base
       include Waitable
 
-      def initialize(http_client, filter)
-        @http_client = http_client
+      def initialize(widget_controller, filter)
+        @widget_controller = widget_controller
         @filter = filter
       end
 
@@ -17,7 +17,7 @@ module LibyuiClient
       #   app.button(id: 'test').exists? # true
       def exists?
         LibyuiClient.logger.info("Does #{class_name} exist: #{@filter}")
-        true if @http_client.widget_get(@filter, timeout: 0)
+        true if @widget_controller.find(@filter, timeout: 0)
       rescue Error::WidgetNotFoundError
         false
       end
@@ -59,7 +59,7 @@ module LibyuiClient
       #   value = app.button(id: 'test').property(:label)
       def property(property)
         LibyuiClient.logger.info("Get #{property} for #{class_name} #{@filter}")
-        result = @http_client.widget_get(@filter).body.first[property.to_sym]
+        result = @widget_controller.find(@filter).body.first[property.to_sym]
         LibyuiClient.logger.info("Found '#{property}=#{result}' for #{class_name} #{@filter}")
         result
       end
@@ -71,7 +71,7 @@ module LibyuiClient
       #   app.button(id: 'test').action(action: 'press')
       def action(params)
         LibyuiClient.logger.info("Send #{params} action for #{class_name} #{@filter}")
-        @http_client.widget_send_action(@filter, params)
+        @widget_controller.send_action(@filter, params)
       end
 
       # Get all widgets found with filter.
@@ -81,18 +81,15 @@ module LibyuiClient
       # @example Get all checkboxes and check all of them
       #   checkboxes = app.checkbox(type: "YCheckBox").collect_all
       #   checkboxes.each{ |checkbox| puts checkbox.check }
-      # rubocop:disable Metrics/AbcSize
       def collect_all
         LibyuiClient.logger.info("Collect all #{class_name} widgets with filter #{@filter}")
-        result = @http_client.widget_get(@filter).body
-        LibyuiClient.logger.info("Found #{class_name} widgets for filter #{@filter}: #{result}")
+        result = @widget_controller.find(@filter).body
+        LibyuiClient.logger.info("Found widgets for filter #{@filter}: #{result}")
         result.map do |widget|
-          self.class.new(@http_client,
+          self.class.new(@widget_controller,
                          Validate.filter({ type: widget[:class], label: widget[:debug_label], id: widget[:id] }))
         end
       end
-
-      # rubocop:enable Metrics/AbcSize
 
       private
 

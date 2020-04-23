@@ -4,7 +4,7 @@ module LibyuiClient
   module Widgets
     # Class representing a textbox in the UI. It can be YInputField.
     class Textbox < Widgets::Base
-      # Sends action to set the value of textbox
+      # Sends action to set the value of textbox.
       # @param value [String] text to be set in textbox
       # @return [Textbox] in case action is successful
       # @example Set text in textbox with id 'test' to 'my value'
@@ -14,7 +14,7 @@ module LibyuiClient
         self
       end
 
-      # Returns text that is currently set for textbox
+      # Returns text that is currently set for textbox.
       # Gets value from 'value' parameter in JSON representation of YInputField.
       # @return [String] value
       # @example Get value from textbox with id "address"

@@ -9,7 +9,7 @@ module LibyuiClient
     def initialize(host:, port:)
       @host = host
       @port = port
-      @http_client = Http::LibyuiHttpClient.new(host: host, port: port)
+      @widget_controller = Http::WidgetController.new(host: host, port: port)
     end
 
     # Initializes new instance of Button with the filter provided.
@@ -19,7 +19,7 @@ module LibyuiClient
     # @example
     #   app.button(id: 'id', label: 'label', type: 'YPushButton')
     def button(filter)
-      Widgets::Button.new(@http_client, Validate.filter(filter))
+      Widgets::Button.new(@widget_controller, Validate.filter(filter))
     end
 
     # Initializes new instance of Checkbox with the filter provided.
@@ -29,7 +29,7 @@ module LibyuiClient
     # @example
     #   app.checkbox(id: 'id', label: 'label', type: 'YCheckBox')
     def checkbox(filter)
-      Widgets::Checkbox.new(@http_client, Validate.filter(filter))
+      Widgets::Checkbox.new(@widget_controller, Validate.filter(filter))
     end
 
     # Initializes new instance of Combobox with the filter provided.
@@ -39,7 +39,7 @@ module LibyuiClient
     # @example
     #   app.checkbox(id: 'id', label: 'label', type: 'YComboBox')
     def combobox(filter)
-      Widgets::Combobox.new(@http_client, Validate.filter(filter))
+      Widgets::Combobox.new(@widget_controller, Validate.filter(filter))
     end
 
     # Initializes new instance of Radiobutton with the filter provided.
@@ -49,7 +49,7 @@ module LibyuiClient
     # @example
     #   app.checkbox(id: 'id', label: 'label', type: 'YRadioButton')
     def radiobutton(filter)
-      Widgets::Radiobutton.new(@http_client, Validate.filter(filter))
+      Widgets::Radiobutton.new(@widget_controller, Validate.filter(filter))
     end
 
     # Initializes new instance of Table with the filter provided.
@@ -59,7 +59,7 @@ module LibyuiClient
     # @example
     #   app.checkbox(id: 'id', label: 'label', type: 'YTable')
     def table(filter)
-      Widgets::Table.new(@http_client, Validate.filter(filter))
+      Widgets::Table.new(@widget_controller, Validate.filter(filter))
     end
 
     # Initializes new instance of Textbox with the filter provided.
@@ -69,7 +69,7 @@ module LibyuiClient
     # @example
     #   app.checkbox(id: 'id', label: 'label', type: 'YInputField')
     def textbox(filter)
-      Widgets::Textbox.new(@http_client, Validate.filter(filter))
+      Widgets::Textbox.new(@widget_controller, Validate.filter(filter))
     end
   end
 end
