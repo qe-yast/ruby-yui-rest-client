@@ -1,12 +1,15 @@
+*.gem
+*.rbc
+.rakeTasks
+.rspec_status
+.vendor
 /.bundle/
 /.yardoc
 /_yardoc/
 /coverage/
-/doc/
 /pkg/
 /spec/reports/
 /tmp/
-.vendor
-
-# rspec failure tracking
-.rspec_status
+doc/
+Gemfile.lock
+y2signal.log

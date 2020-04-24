@@ -2,7 +2,8 @@
 
 require 'bundler/setup'
 require 'libyui_client'
-require 'aruba/rspec'
+require 'webmock/rspec'
+require 'widgets/widgets_common_spec'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -13,5 +14,7 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+
+    WebMock.disable_net_connect!(allow_localhost: true)
   end
 end

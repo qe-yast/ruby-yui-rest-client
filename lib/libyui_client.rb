@@ -1,49 +1,39 @@
 # frozen_string_literal: true
 
+require 'json'
+require 'net/http'
+require 'uri'
+require 'timeout'
+
 require 'libyui_client/version'
-require 'libyui_client/widget_controller'
-require 'libyui_client/process_helper'
-require 'libyui_client/widget'
-require 'libyui_client/rest_api_client'
+require 'libyui_client/local_process'
+require 'libyui_client/widgets'
+require 'libyui_client/logger'
+require 'libyui_client/timer'
+require 'libyui_client/wait'
+require 'libyui_client/app'
+require 'libyui_client/validate'
+require 'libyui_client/http/http_client'
+require 'libyui_client/http/widget_controller'
+require 'libyui_client/http/response'
+require 'libyui_client/error'
+require 'libyui_client/actions'
 
 # Client to interact with YAST UI rest api framework for integration testing
 module LibyuiClient
-  
-  WIDGET_TYPE = {
-    'YQWizardButton' => Button,
-    'YPushButton' => Button,
-    'YInputField' => TextBox,
-    'YTable' => Table,
-    'YWizard' => Wizard,
-    'YDialog' => Dialog,
-    'YCheckBox' => CheckBox,
-    'YComboBox' => ComboBox,
-    'YRadioButton' => RadioButton
-  }.freeze
+  class << self
+    attr_writer :timeout, :interval
 
-  def self.find_widget(id: nil, label: nil, type: nil, 
-                       debug_label: nil, inner_type: nil,
-                       timeout: 0)
-    raise "Use id, label or type to filter a widget" if [id, label, type].none?
-    json = nil
-    timed_retry(timeout) do
-      params = {}
-      params[:id] = id if id
-      params[:label] = label if label
-      params[:type] = type if type
-      json = send_request(:get, '/widgets', params).first
-      if debug_label
-        json['debug_label'] == debug_label
-      elsif inner_type
-        json['type'] == inner_type
-      else
-        json
-      end
+    def timeout
+      @timeout ||= 5
     end
-    json_class = json["class"]
-    app_class = WIDGET_TYPE.fetch(json_class) { 
-        raise "#{json_class} does not map to any application control" }
-    LibyuiClient.add_step_delay
-    app_class.new(json)
-  end  
+
+    def interval
+      @interval ||= 0.5
+    end
+  end
+
+  def self.logger
+    @logger ||= LibyuiClient::Logger.new
+  end
 end
