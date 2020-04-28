@@ -10,5 +10,10 @@ module LibyuiClient
     require 'libyui_client/widgets/radiobutton'
     require 'libyui_client/widgets/table'
     require 'libyui_client/widgets/textbox'
+    require 'libyui_client/widgets/label'
+    require 'libyui_client/widgets/richtext'
+    # Class representing a Wizard UI. It can be YWizard
+    class Wizard < Widgets::Base
+    end
   end
 end
