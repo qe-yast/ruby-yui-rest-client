@@ -11,7 +11,11 @@ module LibyuiClient
     # @example Wait for checkbox to be checked
     #   app.checkbox(id: 'test').wait_until(&:checked?)
     def wait_until(timeout: LibyuiClient.timeout, interval: LibyuiClient.interval, message: nil, &block)
+      @timeout = timeout
+      @interval = interval
       Wait.until(timeout: timeout, interval: interval, message: message, object: self, &block)
+      @timeout = LibyuiClient.timeout
+      @interval = LibyuiClient.interval
       self
     end
 
@@ -24,7 +28,11 @@ module LibyuiClient
     # @example Wait for checkbox to be unchecked
     #   app.checkbox(id: 'test').wait_while(&:checked?)
     def wait_while(timeout: LibyuiClient.timeout, interval: LibyuiClient.interval, message: nil, &block)
+      @timeout = timeout
+      @interval = interval
       Wait.while(timeout: timeout, interval: interval, message: message, object: self, &block)
+      @timeout = LibyuiClient.timeout
+      @interval = LibyuiClient.interval
       self
     end
   end

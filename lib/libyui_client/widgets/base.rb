@@ -8,6 +8,8 @@ module LibyuiClient
       def initialize(widget_controller, filter)
         @widget_controller = widget_controller
         @filter = filter
+        @timeout = LibyuiClient.timeout
+        @interval = LibyuiClient.interval
       end
 
       # Allows to check if widget exists on the current screen or not.
@@ -17,7 +19,7 @@ module LibyuiClient
       #   app.button(id: 'test').exists? # true
       def exists?
         LibyuiClient.logger.info("Does #{class_name} exist: #{@filter}")
-        true if @widget_controller.find(@filter, timeout: 0)
+        true if @widget_controller.find(@filter, timeout: 0, interval: @interval)
       rescue Error::WidgetNotFoundError
         false
       end
@@ -59,7 +61,7 @@ module LibyuiClient
       #   value = app.button(id: 'test').property(:label)
       def property(property)
         LibyuiClient.logger.info("Get #{property} for #{class_name} #{@filter}")
-        result = @widget_controller.find(@filter).body.first[property.to_sym]
+        result = @widget_controller.find(@filter, timeout: @timeout, interval: @interval).body.first[property.to_sym]
         LibyuiClient.logger.info("Found '#{property}=#{result}' for #{class_name} #{@filter}")
         result
       end
@@ -71,7 +73,7 @@ module LibyuiClient
       #   app.button(id: 'test').action(action: 'press')
       def action(params)
         LibyuiClient.logger.info("Send #{params} action for #{class_name} #{@filter}")
-        @widget_controller.send_action(@filter, params)
+        @widget_controller.send_action(@filter, params, timeout: @timeout, interval: @interval)
       end
 
       # Get all widgets found with filter.
@@ -83,7 +85,7 @@ module LibyuiClient
       #   checkboxes.each{ |checkbox| puts checkbox.check }
       def collect_all
         LibyuiClient.logger.info("Collect all #{class_name} widgets with filter #{@filter}")
-        result = @widget_controller.find(@filter).body
+        result = @widget_controller.find(@filter, timeout: @timeout, interval: @interval).body
         LibyuiClient.logger.info("Found widgets for filter #{@filter}: #{result}")
         result.map do |widget|
           self.class.new(@widget_controller,
