@@ -10,10 +10,10 @@ module LibyuiClient
 
       # Find a widget using the filter.
       # @param filter [Hash] identifiers to find a widget
-      # @param timeout [Numeric] how long to wait (in seconds). Default is LibyuiClient.timeout.
-      # @param interval [Numeric] time in seconds between attempts. Default is LibyuiClient.interval.
+      # @param timeout [Numeric] how long to wait (in seconds).
+      # @param interval [Numeric] time in seconds between attempts.
       # @return [Response]
-      def find(filter, timeout: LibyuiClient.timeout, interval: LibyuiClient.interval)
+      def find(filter, timeout:, interval:)
         res = nil
         Wait.until(timeout: timeout, interval: interval) do
           uri = HttpClient.compose_uri(@host, @port, '/widgets', filter)
@@ -27,10 +27,10 @@ module LibyuiClient
       # Perform an action on the widget.
       # @param filter [Hash] identifiers to find a widget
       # @param action [Hash] what to do with the widget
-      # @param timeout [Numeric] how long to wait (in seconds). Default is LibyuiClient.timeout.
-      # @param interval [Numeric] time in seconds between attempts. Default is LibyuiClient.interval.
+      # @param timeout [Numeric] how long to wait (in seconds).
+      # @param interval [Numeric] time in seconds between attempts.
       # @return [Response]
-      def send_action(filter, action, timeout: LibyuiClient.timeout, interval: LibyuiClient.interval)
+      def send_action(filter, action, timeout:, interval:)
         res = nil
         Wait.until(timeout: timeout, interval: interval) do
           uri = HttpClient.compose_uri(@host, @port, '/widgets',
