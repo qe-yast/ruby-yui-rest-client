@@ -15,6 +15,9 @@ Lint/RaiseException:
 Lint/StructNewOverride:
   Enabled: true
 
+Lint/UriEscapeUnescape:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - "**/*_spec.rb"
@@ -33,3 +36,6 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
+
+Metrics/ModuleLength:
+  Max: 500
