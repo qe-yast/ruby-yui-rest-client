@@ -18,9 +18,12 @@ module LibyuiClient
       # @example Check if button with id 'test' exists
       #   app.button(id: 'test').exists? # true
       def exists?
-        LibyuiClient.logger.info("Does #{class_name} exist: #{@filter}")
-        true if @widget_controller.find(@filter, timeout: 0, interval: @interval)
+        LibyuiClient.logger.info("Checking if #{class_name} with #{@filter} exists")
+        @widget_controller.find(@filter, timeout: 0, interval: @interval).body
+        LibyuiClient.logger.info("#{class_name} exists: #{@filter}")
+        true
       rescue Error::WidgetNotFoundError
+        LibyuiClient.logger.info("#{class_name} does not exist: #{@filter}")
         false
       end
 
@@ -78,6 +81,8 @@ module LibyuiClient
 
       # Get all widgets found with filter.
       # The method is mainly introduced for "type" filter, which can return an array of widgets.
+      # It only makes sense to use this method whenever server side filters allow to find individually those
+      # collected widgets, otherwise those will not be able to access their internal properties.
       # @return [Array] array of deserialized widgets.
       # Then actions that are specified for the widget can be called while iterating over the returned array.
       # @example Get all checkboxes and check all of them
@@ -89,7 +94,7 @@ module LibyuiClient
         LibyuiClient.logger.info("Found widgets for filter #{@filter}: #{result}")
         result.map do |widget|
           self.class.new(@widget_controller,
-                         Validate.filter({ type: widget[:class], label: widget[:debug_label], id: widget[:id] }))
+                         Validate.filter(type: widget[:class], label: widget[:label], id: widget[:id]))
         end
       end
 

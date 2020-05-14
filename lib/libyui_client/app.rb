@@ -71,5 +71,35 @@ module LibyuiClient
     def textbox(filter)
       Widgets::Textbox.new(@widget_controller, Validate.filter(filter))
     end
+
+    # Initializes new instance of wizard with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Wizard] new instance of Wizard
+    # @example
+    #   app.wizard(id: 'id', label: 'label', type: 'YWizard')
+    def wizard(filter)
+      Widgets::Wizard.new(@widget_controller, Validate.filter(filter))
+    end
+
+    # Initializes new instance of label with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Label] new instance of Label
+    # @example
+    #   app.label(id: 'id', label: 'label', type: 'YLabel')
+    def label(filter)
+      Widgets::Label.new(@widget_controller, Validate.filter(filter))
+    end
+
+    # Initializes new instance of richtext with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Richtext] new instance of Richtext
+    # @example
+    #   app.richtext(id: 'id', label: 'label', type: 'YLabel')
+    def richtext(filter)
+      Widgets::Richtext.new(@widget_controller, Validate.filter(filter))
+    end
   end
 end
