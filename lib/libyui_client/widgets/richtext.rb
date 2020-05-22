@@ -3,16 +3,9 @@
 module LibyuiClient
   module Widgets
     # Class representing a richtext in the UI. It can be YRichText.
-    class Richtext < Widgets::Base
-      # Sends action to click a link inside a richtext control in the UI.
-      # @param value [String] href
-      # @return [Richtext] in case action is successful
-      # @example Click link with value 'test'
-      #   items.click_link('test')
-      def click_link(value)
-        action(action: Actions::PRESS, value: value)
-        self
-      end
+    class Richtext < Widgets::Widget
+      # Include behavior to sends action to click a link inside a richtext control.
+      # include Behaviors::Pressable
 
       # Returns text value for the richtext.
       # @return [String] value

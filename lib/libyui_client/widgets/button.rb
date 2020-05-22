@@ -3,13 +3,11 @@
 module LibyuiClient
   module Widgets
     # Class representing a button in UI. It can be YQWizardButton, YPushButton.
-    class Button < Widgets::Base
-      # Sends action to click the button in UI.
-      # @return [Button] in case action is successful
-      # @example Click button with id 'test'
-      #   app.button(id: 'test').click
-      def click
-        action(action: Actions::PRESS)
+    class Button < Widgets::Widget
+      # include Behaviors::Pressable
+
+      def press
+        send_action
         self
       end
 

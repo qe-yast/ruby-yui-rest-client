@@ -3,7 +3,7 @@
 module LibyuiClient
   module Widgets
     # Class representing a Label UI. It can be YLabel, YLabel_Heading
-    class Label < Widgets::Base
+    class Label < Widgets::Widget
       # Returns text value for the label.
       # @return [String] value
       # @example Get text value for YLabel, YLabelHeading

@@ -2,7 +2,7 @@
 
 module LibyuiClient
   module Widgets
-    class Base
+    class Widget
       include Waitable
 
       def initialize(widget_controller, filter)
@@ -67,16 +67,6 @@ module LibyuiClient
         result = @widget_controller.find(@filter, timeout: @timeout, interval: @interval).body.first[property.to_sym]
         LibyuiClient.logger.info("Found '#{property}=#{result}' for #{class_name} #{@filter}")
         result
-      end
-
-      # This method can be used to send any action to widget.
-      # Can be called against any widget.
-      # @param params [Hash] actions to be sent (e.g. action: 'press').
-      # @example Send action 'press' to button widget.
-      #   app.button(id: 'test').action(action: 'press')
-      def action(params)
-        LibyuiClient.logger.info("Send #{params} action for #{class_name} #{@filter}")
-        @widget_controller.send_action(@filter, params, timeout: @timeout, interval: @interval)
       end
 
       # Get all widgets found with filter.

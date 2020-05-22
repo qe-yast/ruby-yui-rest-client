@@ -38,53 +38,84 @@ libyui_client supports different types of widgets.
 
 Here are examples of usage:
 
+
 ### Button
 
 ```ruby
-app = LibyuiClient::App.new(host: 'localhost', port: '9999')
-app.button(id: 'test_id').click  # clicks the button with id 'test_id'
+app.button(id: 'test_id').click  # click button with id 'test_id'
 app.button(label: 'test_label', id: 'test_id').debug_label # get 'debug_label' value
 ```
 
 ### Checkbox
 
 ```ruby
-app = LibyuiClient::App.new(host: 'localhost', port: '9999')
-app.checkbox(id: 'test_id').check  # checks the checkbox with id 'test_id'
-app.checkbox(id: 'test_id').uncheck  # unchecks the checkbox with id 'test_id'
-app.checkbox(id: 'test_id').toggle # toggles the checkbox with id 'test_id'
+app.checkbox(id: 'test_id').check  # check checkbox with id 'test_id'
+app.checkbox(id: 'test_id').uncheck  # uncheck checkbox with id 'test_id'
+app.checkbox(id: 'test_id').toggle # toggle checkbox with id 'test_id'
 app.checkbox(label: 'test_label', id: 'test_id').checked? # gets the state of checkbox
 ```
 
 ### Combobox
 
 ```ruby
-app = LibyuiClient::App.new(host: 'localhost', port: '9999')
-app.combobox(id: 'test_id').select  # selects the checkbox with id 'test_id'
-app.combobox(id: 'test_id').items  # gets all available items for combobox with id 'test_id'
-app.combobox(id: 'test_id').selected_item # gets the selected item
+app.combobox(id: 'test_id').choose('item')  # select 'item' in checkbox with id 'test_id'
+app.combobox(id: 'test_id').items  # get all available items for combobox with id 'test_id'
+app.combobox(id: 'test_id').selected_item # get selected item
+```
+
+### Label
+```ruby
+app.label(id: 'test_id').text  # get text from label
+app.label(id: 'test_id').heading?  # get if label has bold font respresentation
+```
+
+### MenuButton
+```ruby
+app.menubutton(id: 'test_id').click('menu_option')  # click on 'menu_option' of menubutton
+```
+
+### Numberbox
+```ruby
+app.numberbox(id: 'test_id').set(99)  # set 99 to numberbox with id 'test_id'
+app.numberbox(id: 'test_id').value  # gets value from numberbox
 ```
 
 ### Radiobutton
 
 ```ruby
-app = LibyuiClient::App.new(host: 'localhost', port: '9999')
-app.radiobutton(id: 'test_id').select  # selects the radiobutton with id 'test_id'
-app.radiobutton(id: 'test_id').selected?  # gets the state of radiobutton
+app.radiobutton(id: 'test_id').click  # click on radiobutton with id 'test_id'
+app.radiobutton(id: 'test_id').selected?  # get state of radiobutton
+```
+
+### Richtext
+```ruby
+app.richtext(id: 'test_id').click_link('test_link')  # click on link "test_link" with id 'test_id'
+app.richtext(id: 'test_id').text  # get text from richtext
+```
+
+### Tab
+
+```ruby
+app.tab(id: 'test_tab').select(value: 'item')  # select specific tab
 ```
 
 ### Table
 
 ```ruby
-app = LibyuiClient::App.new(host: 'localhost', port: '9999')
-app.table(id: 'test_table').select_row(value: 'test.item.1', column_id: 0)  # selects the row in table with test.item.1
+app.table(id: 'test_table').select_row(value: 'test.item.1', column: 'header1')  # select row in table
 ```
 
 ### Textbox
 ```ruby
-app = LibyuiClient::App.new(host: 'localhost', port: '9999')
-app.textbox(id: 'test_id').set('Test Text')  # sets "Test Text" to textbox with id 'test_id'
+app.textbox(id: 'test_id').set('Test Text')  # set "Test Text" to textbox with id 'test_id'
 app.textbox(id: 'test_id').value  # gets value from textbox
+```
+
+### Tree
+```ruby
+app.tree(id: 'test_id').select('node1|node1_2')  # select "node1|node1_2" in tree with id 'test_id'
+app.tree(id: 'test_id').items  # get items from tree
+app.tree(id: 'test_id').seletected_item  # get currently highlighted item from tree
 ```
 
 ## Filters
