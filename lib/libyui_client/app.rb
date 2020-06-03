@@ -42,6 +42,36 @@ module LibyuiClient
       Widgets::Combobox.new(@widget_controller, Validate.filter(filter))
     end
 
+    # Initializes new instance of Label with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Label] new instance of Label
+    # @example
+    #   app.label(id: 'id', label: 'label', type: 'YLabel')
+    def label(filter)
+      Widgets::Label.new(@widget_controller, Validate.filter(filter))
+    end
+
+    # Initializes new instance of Menubutton with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Menubutton] new instance of Menubutton
+    # @example
+    #   app.menubutton(id: 'id', label: 'label', type: 'YMenuButton')
+    def menubutton(filter)
+      Widgets::Menubutton.new(@widget_controller, Validate.filter(filter))
+    end
+
+    # Initializes new instance of Numberbox with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Numberbox] new instance of Numberbox
+    # @example
+    #   app.numberbox(id: 'id', label: 'label', type: 'YIntField')
+    def numberbox(filter)
+      Widgets::Numberbox.new(@widget_controller, Validate.filter(filter))
+    end
+
     # Initializes new instance of Radiobutton with the filter provided.
     # Does not make request to libyui-rest-api.
     # @param filter [Hash] filter to find a widget
@@ -50,6 +80,26 @@ module LibyuiClient
     #   app.checkbox(id: 'id', label: 'label', type: 'YRadioButton')
     def radiobutton(filter)
       Widgets::Radiobutton.new(@widget_controller, Validate.filter(filter))
+    end
+
+    # Initializes new instance of Richtext with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Richtext] new instance of Richtext
+    # @example
+    #   app.richtext(id: 'id', label: 'label', type: 'YLabel')
+    def richtext(filter)
+      Widgets::Richtext.new(@widget_controller, Validate.filter(filter))
+    end
+
+    # Initializes new instance of Tab with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Tab] new instance of Tab
+    # @example
+    #   app.tab(id: 'id', label: 'label', type: 'YDumbTab')
+    def tab(filter)
+      Widgets::Tab.new(@widget_controller, Validate.filter(filter))
     end
 
     # Initializes new instance of Table with the filter provided.
@@ -67,12 +117,22 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Textbox] new instance of Textbox
     # @example
-    #   app.checkbox(id: 'id', label: 'label', type: 'YInputField')
+    #   app.textbox(id: 'id', label: 'label', type: 'YInputField')
     def textbox(filter)
       Widgets::Textbox.new(@widget_controller, Validate.filter(filter))
     end
 
-    # Initializes new instance of wizard with the filter provided.
+    # Initializes new instance of Tree with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Tree] new instance of Tree
+    # @example
+    #   app.tree(id: 'id', label: 'label', type: 'YTree')
+    def tree(filter)
+      Widgets::Tree.new(@widget_controller, Validate.filter(filter))
+    end
+
+    # Initializes new instance of Wizard with the filter provided.
     # Does not make request to libyui-rest-api.
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Wizard] new instance of Wizard
@@ -80,26 +140,6 @@ module LibyuiClient
     #   app.wizard(id: 'id', label: 'label', type: 'YWizard')
     def wizard(filter)
       Widgets::Wizard.new(@widget_controller, Validate.filter(filter))
-    end
-
-    # Initializes new instance of label with the filter provided.
-    # Does not make request to libyui-rest-api.
-    # @param filter [Hash] filter to find a widget
-    # @return [Widgets::Label] new instance of Label
-    # @example
-    #   app.label(id: 'id', label: 'label', type: 'YLabel')
-    def label(filter)
-      Widgets::Label.new(@widget_controller, Validate.filter(filter))
-    end
-
-    # Initializes new instance of richtext with the filter provided.
-    # Does not make request to libyui-rest-api.
-    # @param filter [Hash] filter to find a widget
-    # @return [Widgets::Richtext] new instance of Richtext
-    # @example
-    #   app.richtext(id: 'id', label: 'label', type: 'YLabel')
-    def richtext(filter)
-      Widgets::Richtext.new(@widget_controller, Validate.filter(filter))
     end
   end
 end

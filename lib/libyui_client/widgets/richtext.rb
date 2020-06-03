@@ -25,7 +25,7 @@ module LibyuiClient
       #     "text": "<small>Select something here</small>",
       #     "vstretch": true,
       #     "vweight": 25
-      # }
+      #   }
       # @example
       #   text = app.richtext(id: 'test').text # "<small>Select something here</small>"
       def text
