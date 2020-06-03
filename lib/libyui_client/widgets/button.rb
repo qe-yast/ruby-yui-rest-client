@@ -14,7 +14,7 @@ module LibyuiClient
       end
 
       # Returns fkey value for the button.
-      # @return fkey [Integer] F (function) key that can be used as shortcut to press the button.
+      # @return [Integer] F (function) key that can be used as shortcut to press the button.
       # @example Get fkey value for YQWizardButton
       #   {
       #     "class": "YQWizardButton",
@@ -24,7 +24,7 @@ module LibyuiClient
       #     "label": "&Cancel"
       #   }
       # @example
-      #   fkey = app.button(id: 'cancel').fkey # 9
+      #   fkey = app.button(id: 'cancel').fkey
       def fkey
         property(:fkey)
       end
