@@ -38,7 +38,7 @@ module LibyuiClient
 
       describe '#items' do
         context 'existing widget' do
-          it 'should return list of Strings' do
+          it 'should return array of strings' do
             get_items
             expect(@app.combobox(id).items).to eq(items_list)
           end
@@ -53,7 +53,7 @@ module LibyuiClient
 
       describe '#selected_item' do
         context 'existing widget' do
-          it 'should return Strings' do
+          it 'should return array of strings' do
             get_items
             expect(@app.combobox(id).selected_item).to eq(select_item)
           end
