@@ -39,7 +39,7 @@ module LibyuiClient
 
       # Returns debug_label value for widget.
       # Can be called against any widget.
-      # @return debug_label [String] value of debug_label property
+      # @return [String] value of debug_label property
       # @example Get debug_label value for button
       #   {
       #     "class": "YQWizardButton",
@@ -49,7 +49,7 @@ module LibyuiClient
       #     "label": "&Cancel"
       #   }
       # @example
-      #   fkey = app.button(id: 'cancel').debug_label # "Cancel"
+      #   debug_label = app.button(id: 'cancel').debug_label # Cancel
       def debug_label
         property(:debug_label)
       end

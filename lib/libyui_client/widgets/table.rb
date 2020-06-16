@@ -4,35 +4,130 @@ module LibyuiClient
   module Widgets
     # Class representing a table in the UI. It can be YTable
     class Table < Widgets::Base
-      # Sends action to select a row in a table.
-      # @param value [String] value to select in the table.
-      # @param column_id [Integer] number of column in zero-based numbering format (i.e. the first column is 0)
-      # @return [Table] in case action is successful
-      # @example Select "test.item.2" in the table
+      # Returns whether the table contains any row or not
+      # @return [Boolean] true if table is empty, otherwise false
+      # @example Check if table with id "test_id" is empty
       #     {
       #       "class": "YTable",
-      #       "columns": 1,
-      #       "id": "test_table",
+      #       "columns": 4,
+      #       "header": [
+      #         "header1",
+      #         "header2",
+      #         "header3",
+      #         "header4"
+      #       ],
+      #       "id": "test_id",
+      #       "items": null,
+      #       "items_count": 0
+      #     }
+      # @example
+      #   app.table(id: 'test_id').empty?
+      def empty?
+        property(:items).nil?
+      end
+
+      # Returns the list of items available to select from the table.
+      # @return [Array] array of [Array] objects containing values for each column
+      # @example Get items from the table with id "test_id"
+      #     {
+      #       "class": "YTable",
+      #       "columns": 4,
+      #       "header": [
+      #         "header1",
+      #         "header2",
+      #         "header3",
+      #         "header4"
+      #       ],
+      #       "id": "test_id",
       #       "items": [
       #           {
       #               "labels": [
-      #                   "test.item.1"
+      #                   "test.item.1",
+      #                   "",
+      #                   "",
+      #                   ""
       #               ],
       #               "selected": true
       #           },
       #           {
       #               "labels": [
-      #                     "test.item.2"
+      #                   "test.item.2",
+      #                   "",
+      #                   "",
+      #                   ""
       #               ]
       #           }
       #       ],
       #       "items_count": 2
       #     }
       # @example
-      #   app.table(id: 'test_table').select_row(value: 'test.item.2', column_id: 0)
-      def select_row(value:, column_id:)
-        action(action: Actions::SELECT, value: value, column: column_id)
+      #   app.table(id: 'test_id').items
+      #   # [test.item.1, "", "", ""]
+      #   # [test.item.2, "", "", ""]
+      def items
+        property(:items).map { |x| x[:labels] }
+      end
+
+      # Sends action to select a row in a table.
+      # @param value [String] value to select in the table.
+      # @param column [String] column name where value is present
+      # @return [Table] in case action is successful
+      # @example Select row with value "test.item.2" for column "header1" in table with id 'test_id'
+      #   app.table(id: 'test_id').select(value: 'test.item.2', column: header1)
+      def select(value:, column: '')
+        params = { action: Actions::SELECT, value: value }
+        params.merge!(column: get_index(column)) unless column.empty?
+        action(params)
         self
+      end
+
+      # Returns the list of items currently selected from the table.
+      # @return [Array] array of [Array] objects containing values for each column
+      # @example Get items from the table with id "test_id"
+      #     {
+      #       "class": "YTable",
+      #       "columns": 4,
+      #       "header": [
+      #         "header1",
+      #         "header2",
+      #         "header3",
+      #         "header4"
+      #       ],
+      #       "id": "test_id",
+      #       "items": [
+      #           {
+      #               "labels": [
+      #                   "test.item.1",
+      #                   "",
+      #                   "",
+      #                   ""
+      #               ],
+      #               "selected": true
+      #           },
+      #           {
+      #               "labels": [
+      #                   "test.item.2",
+      #                   "",
+      #                   "",
+      #                   ""
+      #               ],
+      #               "selected": true
+      #           }
+      #       ],
+      #       "items_count": 2
+      #     }
+      # @example
+      #   app.table(id: 'test_id').selected_items
+      #   # [test.item.1, "", "", ""]
+      #   # [test.item.2, "", "", ""]
+      def selected_items
+        property(:items).map { |x| x[:labels] if x[:selected] }.compact
+      end
+
+      private
+
+      def get_index(column)
+        property(:header).index(column)
       end
     end
   end

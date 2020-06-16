@@ -5,7 +5,7 @@ module LibyuiClient
     # Waits until the block evaluation will return true, raises Error::TimeoutError on timeout.
     # @param timeout [Numeric] how long to wait (in seconds). Default is LibyuiClient.timeout.
     # @param interval [Numeric] time in seconds between attempts. Default is LibyuiClient.interval.
-    # @message [String] message to be sent in case timeout is reached.
+    # @param message [String] message to be sent in case timeout is reached.
     # @raise Error::TimeoutError
     # @return [Waitable] waitable object
     # @example Wait for checkbox to be checked
@@ -22,7 +22,7 @@ module LibyuiClient
     # Waits while the block evaluation returns true, raises Error::TimeoutError on timeout.
     # @param timeout [Numeric] how long to wait (in seconds). Default is LibyuiClient.timeout.
     # @param interval [Numeric] time in seconds between attempts. Default is LibyuiClient.interval.
-    # @message [String] message to be sent in case timeout is reached.
+    # @param message [String] message to be sent in case timeout is reached.
     # @raise Error::TimeoutError
     # @return [Waitable] waitable object
     # @example Wait for checkbox to be unchecked
