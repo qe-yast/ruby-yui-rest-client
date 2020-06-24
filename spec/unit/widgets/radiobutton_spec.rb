@@ -6,7 +6,7 @@ module LibyuiClient
   module Widgets
     RSpec.describe Radiobutton do
       let(:widget_controller) { instance_double('widget_controller') }
-      let(:widget_filter) { { id: 'manual' } }
+      let(:widget_filter) { FilterExtractor.new({ id: 'manual' }) }
       subject { Radiobutton.new(widget_controller, widget_filter) }
       describe '#select' do
         it 'call select action' do

@@ -6,7 +6,7 @@ module LibyuiClient
   module Widgets
     RSpec.describe Tree do
       let(:widget_controller) { instance_double('widget_controller') }
-      let(:filter) { { id: 'foo' } }
+      let(:filter) { FilterExtractor.new({ id: 'foo' }) }
       subject { Tree.new(widget_controller, filter) }
       let(:items) do
         %w[node1 node1|node1_1 node1|node1_2 node1|node1_2|node1_2_1 node1|node1_2|node1_2_2 node2]

@@ -6,7 +6,7 @@ module LibyuiClient
   module Widgets
     RSpec.describe Checkbox do
       let(:widget_controller) { instance_double('widget_controller') }
-      let(:widget_filter) { { id: 'change_now' } }
+      let(:widget_filter) { FilterExtractor.new({ id: 'change_now' }) }
       subject { Checkbox.new(widget_controller, widget_filter) }
       describe '#toggle' do
         it 'has a request with action toggle' do

@@ -6,16 +6,16 @@ module LibyuiClient
       def initialize(host:, port:)
         @host = host
         @port = port
+        @timeout = LibyuiClient.timeout
+        @interval = LibyuiClient.interval
       end
 
       # Find a widget using the filter.
       # @param filter [Hash] identifiers to find a widget
-      # @param timeout [Numeric] how long to wait (in seconds).
-      # @param interval [Numeric] time in seconds between attempts.
       # @return [Response]
-      def find(filter, timeout:, interval:)
+      def find(filter)
         res = nil
-        Wait.until(timeout: timeout, interval: interval) do
+        Wait.until(timeout: @timeout, interval: @interval) do
           uri = HttpClient.compose_uri(@host, @port, '/widgets', filter)
           res = HttpClient.http_get(uri)
           Response.new(res) if res.is_a?(Net::HTTPOK)
@@ -27,12 +27,10 @@ module LibyuiClient
       # Perform an action on the widget.
       # @param filter [Hash] identifiers to find a widget
       # @param action [Hash] what to do with the widget
-      # @param timeout [Numeric] how long to wait (in seconds).
-      # @param interval [Numeric] time in seconds between attempts.
       # @return [Response]
-      def send_action(filter, action, timeout:, interval:)
+      def send_action(filter, action)
         res = nil
-        Wait.until(timeout: timeout, interval: interval) do
+        Wait.until(timeout: @timeout, interval: @interval) do
           uri = HttpClient.compose_uri(@host, @port, '/widgets',
                                        filter.merge(action))
           res = HttpClient.http_post(uri)
