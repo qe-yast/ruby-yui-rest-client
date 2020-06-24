@@ -6,7 +6,7 @@ module LibyuiClient
   module Widgets
     RSpec.describe Combobox do
       let(:widget_controller) { instance_double('widget_controller') }
-      let(:widget_filter) { { id: 'test_combo' } }
+      let(:widget_filter) { FilterExtractor.new({ id: 'test_combo' }) }
       subject { Combobox.new(widget_controller, widget_filter) }
       describe '#select' do
         it 'has a request with action select and correct value' do

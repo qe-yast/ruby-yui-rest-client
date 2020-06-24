@@ -6,7 +6,7 @@ module LibyuiClient
   module Widgets
     RSpec.describe Numberbox do
       let(:widget_controller) { instance_double('widget_controller') }
-      let(:filter) { { id: 'aliases' } }
+      let(:filter) { FilterExtractor.new({ id: 'aliases' }) }
       subject { Numberbox.new(widget_controller, filter) }
 
       describe '#min_value' do

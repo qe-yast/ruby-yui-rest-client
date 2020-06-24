@@ -6,7 +6,7 @@ module LibyuiClient
   module Widgets
     RSpec.describe Button do
       let(:widget_controller) { instance_double('widget_controller') }
-      let(:widget_filter) { { id: 'foo' } }
+      let(:widget_filter) { FilterExtractor.new({ id: 'foo' }) }
       subject { Button.new(widget_controller, widget_filter) }
       describe '#click' do
         it 'has a request with action press' do

@@ -6,7 +6,7 @@ module LibyuiClient
   module Widgets
     RSpec.describe Table do
       let(:widget_controller) { instance_double('widget_controller') }
-      let(:filter) { { id: 'foo' } }
+      let(:filter) { FilterExtractor.new({ id: 'foo' }) }
       let(:header_0) { 'header_0' }
       let(:header_1) { 'header_1' }
       let(:headers) { [header_0, header_1] }

@@ -6,41 +6,7 @@ module LibyuiClient
   module Widgets
     RSpec.describe Base do
       let(:widget_controller) { instance_double('widget_controller') }
-      let(:widget_filter) { { id: 'foo' } }
-      describe '.Base' do
-        context 'when be initialized with default timeout and interval' do
-          it 'has a subclass with default timeout and interval' do
-            @obj = Button.new(widget_controller, widget_filter)
-            aggregate_failures 'for .Button' do
-              expect(@obj).to be_instance_of(Button)
-              expect(@obj.instance_eval('@timeout', __FILE__, __LINE__)).to equal(5)
-              expect(@obj.instance_eval('@interval', __FILE__, __LINE__)).to equal(0.5)
-            end
-          end
-        end
-        context 'when be initialized with custom timeout' do
-          it 'has a class with new timeout' do
-            LibyuiClient.timeout = 2
-            @obj = Checkbox.new(widget_controller, widget_filter)
-            aggregate_failures 'for .Checkbox' do
-              expect(@obj).to be_instance_of(Checkbox)
-              expect(@obj.instance_eval('@timeout', __FILE__, __LINE__)).to equal(2)
-              expect(@obj.instance_eval('@interval', __FILE__, __LINE__)).to equal(0.5)
-            end
-          end
-        end
-        context 'when be initialized with custom interval' do
-          it 'has a class with new interval and still uses the new timeout' do
-            LibyuiClient.interval = 2
-            @obj = Combobox.new(widget_controller, widget_filter)
-            aggregate_failures 'for .Combobox' do
-              expect(@obj).to be_instance_of(Combobox)
-              expect(@obj.instance_eval('@timeout', __FILE__, __LINE__)).to equal(2)
-              expect(@obj.instance_eval('@interval', __FILE__, __LINE__)).to equal(2)
-            end
-          end
-        end
-      end
+      let(:widget_filter) { FilterExtractor.new({ id: 'foo' }) }
 
       describe '#exists?' do
         let(:response) { instance_double('Response', { body: '[{ "id": "foo", "debug_label": "Cancel" }]' }) }
@@ -102,7 +68,7 @@ module LibyuiClient
           allow(widget_controller).to receive(:find).and_return(response)
           @obj = Checkbox.new(widget_controller, widget_filter)
         end
-        context 'when response contins two Widgets' do
+        context 'when response contains two Widgets' do
           it 'returns an Array of two new Widgets' do
             arr = @obj.collect_all
             expect(arr).to be_instance_of(Array)
