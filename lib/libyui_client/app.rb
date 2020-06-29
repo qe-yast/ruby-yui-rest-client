@@ -62,6 +62,16 @@ module LibyuiClient
       Widgets::Menubutton.new(@widget_controller, FilterExtractor.new(filter))
     end
 
+    # Initializes new instance of Multilinebox with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Multilinebox] new instance of Multilinebox
+    # @example
+    #   app.multilinebox(id: 'id', label: 'label', type: 'YMultiLineEdit')
+    def multilinebox(filter)
+      Widgets::Multilinebox.new(@widget_controller, FilterExtractor.new(filter))
+    end
+
     # Initializes new instance of Numberbox with the filter provided.
     # Does not make request to libyui-rest-api.
     # @param filter [Hash] filter to find a widget
@@ -70,6 +80,16 @@ module LibyuiClient
     #   app.numberbox(id: 'id', label: 'label', type: 'YIntField')
     def numberbox(filter)
       Widgets::Numberbox.new(@widget_controller, FilterExtractor.new(filter))
+    end
+
+    # Initializes new instance of Progressbar with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Progressbar] new instance of Progressbar
+    # @example
+    #   app.progressbar(id: 'id', label: 'label', type: 'YIntField')
+    def progressbar(filter)
+      Widgets::Progressbar.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Radiobutton with the filter provided.
@@ -90,6 +110,16 @@ module LibyuiClient
     #   app.richtext(id: 'id', label: 'label', type: 'YLabel')
     def richtext(filter)
       Widgets::Richtext.new(@widget_controller, FilterExtractor.new(filter))
+    end
+
+    # Initializes new instance of Selectionbox with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Selectionbox] new instance of Selectionbox
+    # @example
+    #   app.selectionbox(id: 'id', label: 'label', type: 'YSelectionBox')
+    def selectionbox(filter)
+      Widgets::Selectionbox.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Tab with the filter provided.
