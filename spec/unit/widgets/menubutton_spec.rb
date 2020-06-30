@@ -6,7 +6,7 @@ module LibyuiClient
   module Widgets
     RSpec.describe Menubutton do
       let(:widget_controller) { instance_double('widget_controller') }
-      let(:filter) { { id: 'foo' } }
+      let(:filter) { FilterExtractor.new({ id: 'foo' }) }
       subject { Menubutton.new(widget_controller, filter) }
       let(:button1) { 'button1' }
       let(:button2) { 'button2' }

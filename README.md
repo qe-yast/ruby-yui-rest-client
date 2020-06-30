@@ -139,6 +139,13 @@ libyui_client supports the same filters, as libyui-rest-api provides:
   * label - widget label as currently displayed (i.e. translated!)
   * type - widget class
 
+Also, regex for the filters is allowed.
+
+Example:
+```ruby
+app.button(id: /.*test/).debug_label
+```
+
 ## Waits
 
 ### Default timeout and interval

@@ -12,12 +12,12 @@ require 'libyui_client/logger'
 require 'libyui_client/timer'
 require 'libyui_client/wait'
 require 'libyui_client/app'
-require 'libyui_client/validate'
 require 'libyui_client/http/http_client'
 require 'libyui_client/http/widget_controller'
 require 'libyui_client/http/response'
 require 'libyui_client/error'
 require 'libyui_client/actions'
+require 'libyui_client/filter_extractor'
 
 # Client to interact with YAST UI rest api framework for integration testing
 module LibyuiClient

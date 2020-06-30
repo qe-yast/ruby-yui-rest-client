@@ -19,7 +19,7 @@ module LibyuiClient
     # @example
     #   app.button(id: 'id', label: 'label', type: 'YPushButton')
     def button(filter)
-      Widgets::Button.new(@widget_controller, Validate.filter(filter))
+      Widgets::Button.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Checkbox with the filter provided.
@@ -29,7 +29,7 @@ module LibyuiClient
     # @example
     #   app.checkbox(id: 'id', label: 'label', type: 'YCheckBox')
     def checkbox(filter)
-      Widgets::Checkbox.new(@widget_controller, Validate.filter(filter))
+      Widgets::Checkbox.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Combobox with the filter provided.
@@ -39,7 +39,7 @@ module LibyuiClient
     # @example
     #   app.checkbox(id: 'id', label: 'label', type: 'YComboBox')
     def combobox(filter)
-      Widgets::Combobox.new(@widget_controller, Validate.filter(filter))
+      Widgets::Combobox.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Label with the filter provided.
@@ -49,7 +49,7 @@ module LibyuiClient
     # @example
     #   app.label(id: 'id', label: 'label', type: 'YLabel')
     def label(filter)
-      Widgets::Label.new(@widget_controller, Validate.filter(filter))
+      Widgets::Label.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Menubutton with the filter provided.
@@ -59,7 +59,7 @@ module LibyuiClient
     # @example
     #   app.menubutton(id: 'id', label: 'label', type: 'YMenuButton')
     def menubutton(filter)
-      Widgets::Menubutton.new(@widget_controller, Validate.filter(filter))
+      Widgets::Menubutton.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Numberbox with the filter provided.
@@ -69,7 +69,7 @@ module LibyuiClient
     # @example
     #   app.numberbox(id: 'id', label: 'label', type: 'YIntField')
     def numberbox(filter)
-      Widgets::Numberbox.new(@widget_controller, Validate.filter(filter))
+      Widgets::Numberbox.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Radiobutton with the filter provided.
@@ -79,7 +79,7 @@ module LibyuiClient
     # @example
     #   app.checkbox(id: 'id', label: 'label', type: 'YRadioButton')
     def radiobutton(filter)
-      Widgets::Radiobutton.new(@widget_controller, Validate.filter(filter))
+      Widgets::Radiobutton.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Richtext with the filter provided.
@@ -89,7 +89,7 @@ module LibyuiClient
     # @example
     #   app.richtext(id: 'id', label: 'label', type: 'YLabel')
     def richtext(filter)
-      Widgets::Richtext.new(@widget_controller, Validate.filter(filter))
+      Widgets::Richtext.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Tab with the filter provided.
@@ -99,7 +99,7 @@ module LibyuiClient
     # @example
     #   app.tab(id: 'id', label: 'label', type: 'YDumbTab')
     def tab(filter)
-      Widgets::Tab.new(@widget_controller, Validate.filter(filter))
+      Widgets::Tab.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Table with the filter provided.
@@ -109,7 +109,7 @@ module LibyuiClient
     # @example
     #   app.checkbox(id: 'id', label: 'label', type: 'YTable')
     def table(filter)
-      Widgets::Table.new(@widget_controller, Validate.filter(filter))
+      Widgets::Table.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Textbox with the filter provided.
@@ -119,7 +119,7 @@ module LibyuiClient
     # @example
     #   app.textbox(id: 'id', label: 'label', type: 'YInputField')
     def textbox(filter)
-      Widgets::Textbox.new(@widget_controller, Validate.filter(filter))
+      Widgets::Textbox.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Tree with the filter provided.
@@ -129,7 +129,7 @@ module LibyuiClient
     # @example
     #   app.tree(id: 'id', label: 'label', type: 'YTree')
     def tree(filter)
-      Widgets::Tree.new(@widget_controller, Validate.filter(filter))
+      Widgets::Tree.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Wizard with the filter provided.
@@ -139,7 +139,7 @@ module LibyuiClient
     # @example
     #   app.wizard(id: 'id', label: 'label', type: 'YWizard')
     def wizard(filter)
-      Widgets::Wizard.new(@widget_controller, Validate.filter(filter))
+      Widgets::Wizard.new(@widget_controller, FilterExtractor.new(filter))
     end
   end
 end
