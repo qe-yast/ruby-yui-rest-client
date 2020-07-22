@@ -16,7 +16,7 @@ module LibyuiClient
       def find(filter)
         res = nil
         Wait.until(timeout: @timeout, interval: @interval) do
-          uri = HttpClient.compose_uri(@host, @port, '/widgets', filter)
+          uri = HttpClient.compose_uri(@host, @port, 'widgets', filter)
           res = HttpClient.http_get(uri)
           Response.new(res) if res.is_a?(Net::HTTPOK)
         end

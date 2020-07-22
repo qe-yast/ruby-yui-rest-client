@@ -27,7 +27,7 @@ module LibyuiClient
         URI::HTTP.build(
           host: host,
           port: port,
-          path: path,
+          path: "/v1#{path}",
           query: URI.encode_www_form(params)
         )
       end
