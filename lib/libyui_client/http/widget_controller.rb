@@ -16,7 +16,7 @@ module LibyuiClient
       def find(filter)
         res = nil
         Wait.until(timeout: @timeout, interval: @interval) do
-          uri = HttpClient.compose_uri(@host, @port, '/widgets', filter)
+          uri = HttpClient.compose_uri(@host, @port, "/#{API_VERSION}/widgets", filter)
           res = HttpClient.http_get(uri)
           Response.new(res) if res.is_a?(Net::HTTPOK)
         end
@@ -31,10 +31,10 @@ module LibyuiClient
       def send_action(filter, action)
         res = nil
         Wait.until(timeout: @timeout, interval: @interval) do
-          uri = HttpClient.compose_uri(@host, @port, '/widgets',
+          uri = HttpClient.compose_uri(@host, @port, "/#{API_VERSION}/widgets",
                                        filter.merge(action))
           res = HttpClient.http_post(uri)
-          Response.new(res) if res.code.to_i == 200
+          Response.new(res) if res.is_a?(Net::HTTPOK)
         end
       rescue Error::TimeoutError
         rescue_errors(res)

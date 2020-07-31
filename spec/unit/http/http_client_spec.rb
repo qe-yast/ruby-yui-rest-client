@@ -27,7 +27,7 @@ module LibyuiClient
           it 'returns a new LibyuiClient::Http::Response' do
             expect_any_instance_of(Net::HTTP).to receive(:request).with(an_instance_of(Net::HTTP::Post))
                                                                   .and_return(http)
-            escapedurl = URI.escape('http://test.org?widgets')
+            escapedurl = URI.escape('http://test.org/?widgets')
             uri = URI.parse(escapedurl)
             response = HttpClient.http_post(uri)
             expect(response.code).to eq(200)

@@ -3,14 +3,18 @@
 require 'rspec'
 
 RSpec.shared_context 'WidgetsCommon' do
+  HOSTNAME = 'www.example.com'
+  PORT = 9999
+  URL = "http://#{HOSTNAME}:#{PORT}"
+
   before(:all) do
     LibyuiClient.timeout = 0
     LibyuiClient.interval = 0
-    @app = LibyuiClient::App.new(host: 'www.example.com', port: '9999')
+    @app = LibyuiClient::App.new(host: HOSTNAME, port: PORT)
   end
 
   # Common Request/Response parts
-  let(:widgets_url) { 'http://www.example.com:9999/widgets' }
+  let(:widgets_url) { "#{URL}/#{LibyuiClient::API_VERSION}/widgets" }
   let(:id) { { id: 'libyui' } }
   let(:query_id) { { query: id } }
   let(:status404) { { status: 404 } }

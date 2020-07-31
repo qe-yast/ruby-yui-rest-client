@@ -10,6 +10,7 @@ module LibyuiClient
       @host = host
       @port = port
       @widget_controller = Http::WidgetController.new(host: host, port: port)
+      @version_controller = Http::VersionController.new(host: host, port: port)
     end
 
     # Initializes new instance of Button with the filter provided.
@@ -170,6 +171,30 @@ module LibyuiClient
     #   app.wizard(id: 'id', label: 'label', type: 'YWizard')
     def wizard(filter)
       Widgets::Wizard.new(@widget_controller, FilterExtractor.new(filter))
+    end
+
+    # Returns client side libyui REST API version
+    # @return libyui client REST API version
+    def client_api_version
+      API_VERSION
+    end
+
+    # Returns server side libyui REST API version
+    # @return libyui server REST API version
+    def server_api_version
+      @version_controller.api_version
+    end
+
+    # Validates if server side REST API is compatible with client inside
+    # @return true if version is compatible, false if not or any error while
+    #         receiving version from the server
+    def check_api_version
+      LibyuiClient.logger.info("Client API version: #{API_VERSION}")
+      server_api_v = server_api_version
+      raise Error::LibyuiClientError if server_api_v.nil?
+
+      LibyuiClient.logger.info("Server API version: #{server_api_v}")
+      server_api_v <= client_api_version
     end
   end
 end

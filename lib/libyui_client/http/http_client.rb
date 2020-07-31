@@ -23,7 +23,7 @@ module LibyuiClient
         res
       end
 
-      def compose_uri(host, port, path, params)
+      def compose_uri(host, port, path, params = {})
         URI::HTTP.build(
           host: host,
           port: port,
