@@ -70,6 +70,26 @@ module LibyuiClient
       def selected_item
         property(:value)
       end
+
+      # Sends action to set string to the editable combobox.
+      # @param item [String] value to set in the combobox.
+      # To check if combobox is editable, call editable?
+      # @return [Combobox] in case action is successful
+      # @raise LibyuiClient::Error::ItemNotFoundInWidgetError in case value is not found in combobox.
+      # @example Set "Custom Version" item in combobox with id "nfs_version"
+      #   app.combobox(id: 'nfs_version').select('Custom Version')
+      def set(value)
+        action(action: Actions::ENTER_TEXT, value: value)
+        self
+      end
+
+      # Allows to check if combobox is editable and allows setting .
+      # @return [Boolean] true if widget enabled, false otherwise.
+      # @example Check if combobox with id 'test' editable
+      #   app.combobox(id: 'test').editable? # true
+      def editable?
+        property(:editable) == true
+      end
     end
   end
 end
