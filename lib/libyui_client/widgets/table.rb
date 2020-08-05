@@ -68,15 +68,27 @@ module LibyuiClient
         property(:items).map { |x| x[:labels] }
       end
 
-      # Sends action to select a row in a table.
+      # Sends action to select a row in a table. Row can be selected either by
+      # cell value in the column (first column will be used by default), or by
+      # row number directly. If both are provided, value will be used.
+      # NOTE: row number corresponds to the position of the
+      # item in the list of column values which might differ to the display order.
       # @param value [String] value to select in the table.
       # @param column [String] column name where value is present
+      # @param row [Numeric] row number to select in the table.
       # @return [Table] in case action is successful
       # @example Select row with value "test.item.2" for column "header1" in table with id 'test_id'
-      #   app.table(id: 'test_id').select(value: 'test.item.2', column: header1)
-      def select(value:, column: '')
-        params = { action: Actions::SELECT, value: value }
-        params.merge!(column: get_index(column)) unless column.empty?
+      #   app.table(id: 'test_id').select(value: 'test.item.2', column: 'header1')
+      # @example Select row number 3 in table with id 'test_id'
+      #   app.table(id: 'test_id').select(row: 3)
+      def select(value: nil, column: nil, row: nil)
+        params = { action: Actions::SELECT }
+        if !value.nil?
+          params.merge!(value: value)
+          params.merge!(column: get_index(column)) unless column.nil?
+        elsif !row.nil?
+          params.merge!(row: row)
+        end
         action(params)
         self
       end
@@ -127,7 +139,7 @@ module LibyuiClient
       private
 
       def get_index(column)
-        property(:header).index(column)
+        header.index(column)
       end
     end
   end
