@@ -66,8 +66,8 @@ module LibyuiClient
       #     "value": "Any (Highest Available)"
       #   }
       # @example
-      #   app.combobox(id: 'nfs_version').selected_item
-      def selected_item
+      #   app.combobox(id: 'nfs_version').value
+      def value
         property(:value)
       end
 

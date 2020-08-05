@@ -30,7 +30,7 @@ module LibyuiClient
         end
       end
 
-      describe '#selected_item' do
+      describe '#value' do
         it 'returns the selected combo item' do
           response = double('Response', { body: [{ 'class': 'YCombobox',
                                                    columns: 1,
@@ -41,7 +41,21 @@ module LibyuiClient
                                                    items_count: 2,
                                                    value: 'Any (Highest Available)' }] })
           expect(widget_controller).to receive(:find).and_return(response)
-          expect(subject.selected_item).to eq('Any (Highest Available)')
+          expect(subject.value).to eq('Any (Highest Available)')
+        end
+      end
+
+      describe '#items' do
+        it 'can return list of the combos of the widget' do
+          response = double('Response', { body: [{ 'class': 'YCombobox',
+                                                   columns: 1,
+                                                   id: 'test_combo',
+                                                   items: [{ label: 'Any (Highest Available)',
+                                                             selected: true },
+                                                           { label: 'Force NFSv3' }],
+                                                   items_count: 2 }] })
+          allow(widget_controller).to receive(:find).and_return(response)
+          expect(subject.items).to eq(['Any (Highest Available)', 'Force NFSv3'])
         end
       end
     end
