@@ -138,7 +138,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Table] new instance of Table
     # @example
-    #   app.checkbox(id: 'id', label: 'label', type: 'YTable')
+    #   app.table(id: 'id', label: 'label', type: 'YTable')
     def table(filter)
       Widgets::Table.new(@widget_controller, FilterExtractor.new(filter))
     end

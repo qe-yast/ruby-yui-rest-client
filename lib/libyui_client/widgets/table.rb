@@ -68,6 +68,14 @@ module LibyuiClient
         property(:items).map { |x| x[:labels] }
       end
 
+      # Returns the list of column names.
+      # @return [Array] array of [String] objects containing names of the columns
+      # @example Get header column names from the table with id "test_id"
+      #   app.table(id: 'test_id').header
+      def header
+        property(:header)
+      end
+
       # Sends action to select a row in a table. Row can be selected either by
       # cell value in the column (first column will be used by default), or by
       # row number directly. If both are provided, value will be used.
