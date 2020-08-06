@@ -16,7 +16,11 @@ module LibyuiClient
       let(:row_1) { [cell_1_0, '', '', ''] }
       let(:rows) { [row_0, row_1] }
       let(:table_with_rows) do
-        double('Response', { body: [{ items: [{ labels: row_0 }, { labels: row_1, selected: true }] }] })
+        double('Response', { body: [{ header: headers,
+                                      items: [
+                                        { labels: row_0 },
+                                        { labels: row_1, selected: true }
+                                      ] }] })
       end
       subject { Table.new(widget_controller, filter) }
 
@@ -61,6 +65,18 @@ module LibyuiClient
             expect(subject.select(value: cell_0_0)).to equal(subject)
           end
         end
+        context 'when row is provided' do
+          it 'sends select action using row' do
+            expect(subject).to receive(:action).with({ action: 'select', row: 0 })
+            expect(subject.select(row: 0)).to equal(subject)
+          end
+        end
+        context 'when value and row are provided' do
+          it 'sends select action using row' do
+            expect(subject).to receive(:action).with({ action: 'select', value: cell_0_0 })
+            expect(subject.select(value: cell_0_0, row: 0)).to equal(subject)
+          end
+        end
       end
 
       describe '#selected_items' do
@@ -68,6 +84,13 @@ module LibyuiClient
         it 'lists selected items' do
           allow(widget_controller).to receive(:find).and_return(table_with_rows)
           expect(subject.selected_items).to eql(rows_selected)
+        end
+      end
+
+      describe '#header' do
+        it 'lists header values' do
+          allow(widget_controller).to receive(:find).and_return(table_with_rows)
+          expect(subject.header).to eql(headers)
         end
       end
     end
