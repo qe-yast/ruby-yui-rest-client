@@ -18,6 +18,7 @@ module LibyuiClient
     require 'libyui_client/widgets/tab'
     require 'libyui_client/widgets/table'
     require 'libyui_client/widgets/textbox'
+    require 'libyui_client/widgets/timefield'
     require 'libyui_client/widgets/label'
     require 'libyui_client/widgets/richtext'
     require 'libyui_client/widgets/tree'

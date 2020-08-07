@@ -153,6 +153,16 @@ module LibyuiClient
       Widgets::Table.new(@widget_controller, FilterExtractor.new(filter))
     end
 
+    # Initializes new instance of time field with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Timefield] new instance of Table
+    # @example
+    #   app.timefield(id: 'id', label: 'label', class: 'YTimeField')
+    def timefield(filter)
+      Widgets::Timefield.new(@widget_controller, FilterExtractor.new(filter))
+    end
+
     # Initializes new instance of Textbox with the filter provided.
     # Does not make request to libyui-rest-api.
     # @param filter [Hash] filter to find a widget
