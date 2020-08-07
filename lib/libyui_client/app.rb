@@ -13,6 +13,16 @@ module LibyuiClient
       @version_controller = Http::VersionController.new(host: host, port: port)
     end
 
+    # Initializes new instance of Bargraph with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Bargraph] new instance of Table
+    # @example
+    #   app.bargraph(id: 'id', label: 'label', class: 'YBarGraph')
+    def bargraph(filter)
+      Widgets::Bargraph.new(@widget_controller, FilterExtractor.new(filter))
+    end
+
     # Initializes new instance of Button with the filter provided.
     # Does not make request to libyui-rest-api.
     # @param filter [Hash] filter to find a widget

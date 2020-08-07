@@ -4,6 +4,7 @@ module LibyuiClient
   module Widgets
     require 'libyui_client/waitable'
     require 'libyui_client/widgets/base'
+    require 'libyui_client/widgets/bargraph'
     require 'libyui_client/widgets/button'
     require 'libyui_client/widgets/checkbox'
     require 'libyui_client/widgets/combobox'
