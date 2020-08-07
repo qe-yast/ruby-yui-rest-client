@@ -43,6 +43,16 @@ module LibyuiClient
       Widgets::Combobox.new(@widget_controller, FilterExtractor.new(filter))
     end
 
+    # Initializes new instance of Datefield with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Datefield] new instance of Datefield
+    # @example
+    #   app.datefield(id: 'id', label: 'label', type: 'YDateField')
+    def datefield(filter)
+      Widgets::Datefield.new(@widget_controller, FilterExtractor.new(filter))
+    end
+
     # Initializes new instance of Label with the filter provided.
     # Does not make request to libyui-rest-api.
     # @param filter [Hash] filter to find a widget

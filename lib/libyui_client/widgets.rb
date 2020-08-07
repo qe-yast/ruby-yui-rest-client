@@ -7,6 +7,7 @@ module LibyuiClient
     require 'libyui_client/widgets/button'
     require 'libyui_client/widgets/checkbox'
     require 'libyui_client/widgets/combobox'
+    require 'libyui_client/widgets/datefield'
     require 'libyui_client/widgets/label'
     require 'libyui_client/widgets/menubutton'
     require 'libyui_client/widgets/multilinebox'
