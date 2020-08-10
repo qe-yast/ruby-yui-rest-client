@@ -82,13 +82,13 @@ module LibyuiClient
       end
 
       # Get all widgets found with filter.
-      # The method is mainly introduced for "type" filter, which can return an array of widgets.
+      # The method is mainly introduced for "class" filter, which can return an array of widgets.
       # It only makes sense to use this method whenever server side filters allow to find individually those
       # collected widgets, otherwise those will not be able to access their internal properties.
       # @return [Array] array of deserialized widgets.
       # Then actions that are specified for the widget can be called while iterating over the returned array.
       # @example Get all checkboxes and check all of them
-      #   checkboxes = app.checkbox(type: "YCheckBox").collect_all
+      #   checkboxes = app.checkbox(class: "YCheckBox").collect_all
       #   checkboxes.each{ |checkbox| puts checkbox.check }
       def collect_all
         LibyuiClient.logger.info("Collect all #{class_name} widgets with filter #{@filter}")

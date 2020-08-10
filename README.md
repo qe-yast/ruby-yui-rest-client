@@ -1,6 +1,8 @@
 # LibyuiClient
 
 Ruby gem to interact with YaST applications via libyui-rest-api.
+See documentation of the [libyui-rest-api project](https://github.com/libyui/libyui-rest-api/)
+for more details about server side implementation.
 
 Usage example:
 
@@ -137,7 +139,7 @@ libyui_client supports the same filters, as libyui-rest-api provides:
 
   * id - widget ID serialized as string, might include special characters like backtick (\`)
   * label - widget label as currently displayed (i.e. translated!)
-  * type - widget class
+  * class - widget class
 
 Also, regex for the filters is allowed.
 
@@ -151,9 +153,9 @@ app.button(id: /.*test/).debug_label
 ### Default timeout and interval
 
 All the actions against widgets in libyui_client are made with default timeout and interval.
-Default timeout is 5 sec, default interval is 0.5 sec. 
-That means libyui_client will repeat sending requests to YaST application every 0.5 seconds until 5 seconds 
-timeout will be reached. This default wait is needed because widgets may not be loaded immediately while trying to 
+Default timeout is 5 sec, default interval is 0.5 sec.
+That means libyui_client will repeat sending requests to YaST application every 0.5 seconds until 5 seconds
+timeout will be reached. This default wait is needed because widgets may not be loaded immediately while trying to
 interact with them (e.g. when navigating from one screen to another).
 
 The default timeout and interval can be changed by the following:
@@ -165,7 +167,7 @@ LibyuiClient.interval = 1
 
 ### Specific waits
 
-All the widgets include Waitable module, which contains special methods to allow explicit waiting: 
+All the widgets include Waitable module, which contains special methods to allow explicit waiting:
 `wait_until` and `wait_while`.
 These methods can be used when it is needed to wait until some property of the widget will be changed.
 
