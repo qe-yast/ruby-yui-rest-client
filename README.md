@@ -42,29 +42,43 @@ libyui_client supports different types of widgets.
 Here are examples of usage:
 
 ### Button
-
 ```ruby
 app.button(id: 'test_id').click  # clicks the button with id 'test_id'
 app.button(label: 'test_label').debug_label # get 'debug_label' value with label 'test_label'
 ```
 
-### Checkbox
+### Bargraph
+```ruby
+# Get list of labels in the segments:
+app.bargraph(class: YBarGraph).labels
+# Get array of hashes containing label->value pairs denoting each segment:
+app.bargraph(class: YBarGraph).segments
+# Get list of values in the segments:
+app.bargraph(class: YBarGraph).values
+```
 
+### Checkbox
 ```ruby
 app.checkbox(id: 'test_id').check  # checks the checkbox with id 'test_id'
-app.checkbox(label: 'test_label').checked? # gets the state of checkbox with label 'test_label'
+app.checkbox(label: 'test_label', class: 'YCheckBox').checked? # gets the state of checkbox with label 'test_label'
 app.checkbox(id: 'test_id').toggle # toggles the checkbox with id 'test_id'
-app.checkbox(id: 'test_id').uncheck  # unchecks the checkbox with id 'test_id'
-
+app.checkbox(label: 'test_label', class: 'YCheckBoxFrame').uncheck  # unchecks the checkbox with id 'test_id'
 ```
 
 ### Combobox
-
 ```ruby
 app.combobox(id: 'test_id').items  # gets all available items for combobox with id 'test_id'
 app.combobox(id: 'test_id').select  # selects the checkbox with id 'test_id'
 app.combobox(id: 'test_id').selected_item # gets the selected item in combobox with id 'test_id'
+app.combobox(label: 'cmbx', class: 'YComboBox').set # Sets custom string to the editable checkbox
 ```
+
+### Datefield
+```ruby
+# Set date field to 2048-08-16
+app.datefield(class: 'YDateField').set(Date.new(2048, 8, 16))
+```
+
 ### Label
 ```ruby
 app.label(id: 'test_id').heading?  # gets if label has bold font respresentation with id 'test_id'
@@ -85,7 +99,6 @@ app.numberbox(id: 'test_id').value  # gets value from numberbox with id 'test_id
 ```
 
 ### Radiobutton
-
 ```ruby
 app.radiobutton(id: 'test_id').select  # selects the radiobutton with id 'test_id'
 app.radiobutton(id: 'test_id').selected?  # gets the state of radiobutton with id 'test_id'
@@ -98,25 +111,28 @@ app.richtext(id: 'test_id').text  # gets text from richtext
 ```
 
 ### Tab
-
 ```ruby
 app.tab(id: 'test_id').items  # gets items from tab with id 'test_id'
 app.tab(id: 'test_id').select(value: 'item')  # selects specific tab with id 'test_id'
 app.tab(id: 'test_id').selected_item  # gets selected tab for tab with id 'test_id'
-
 ```
 
 ### Table
-
 ```ruby
-app.table(id: 'test_id').empty? # checks if there is not rows in table with id 'test_id'
-app.table(id: 'test_id').items  # gets rows in the table with id 'test_id'
-app.table(id: 'test_id').select(value: 'test.item.1', # selects row in table with value test.item.1
-                                column: 'test.header')  # and column test.header
-app.table(id: 'test_id').seleted_items # gets items currently selected in table with id 'test_id'
+# checks if there is not rows in table with id 'test_id':
+app.table(id: 'test_id').empty?
+# gets rows in the table with id 'test_id':
+app.table(id: 'test_id').items
+# selects row in table with value test.item.1 and column test.header:
+app.table(id: 'test_id').select( value: 'test.item.1', column: 'test.header' )
+# selects row with number 3, numeration starts from 0 and corresponds to the order
+# in the list returned by method `items`:
+app.table(id: 'test_id').select(row: 3)
+# gets items currently selected in table with id 'test_id':
+app.table(id: 'test_id').seleted_items
+
 
 ```
-
 ### Textbox
 ```ruby
 app.textbox(id: 'test_id').max_length
@@ -124,6 +140,12 @@ app.textbox(id: 'test_id').set('Test Text')  # sets "Test Text" to textbox with 
 app.textbox(id: 'test_id').password? # checks password mode for textbox with id 'test_id'
 app.textbox(id: 'test_id').valid_chars # checks valid chars for textbox with id 'test_id'
 app.textbox(id: 'test_id').value  # gets value from textbox with id 'test_id'
+```
+
+### TimeField
+```ruby
+# Set TimeField to current time
+app.timefield(label: 'time', class: 'YTimeField').set(Time.now)
 ```
 
 ### Tree
