@@ -108,7 +108,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Progressbar] new instance of Progressbar
     # @example
-    #   app.progressbar(id: 'id', label: 'label', class: 'YIntField')
+    #   app.progressbar(id: 'id', label: 'label', class: 'YProgressBar')
     def progressbar(filter)
       Widgets::Progressbar.new(@widget_controller, FilterExtractor.new(filter))
     end
@@ -128,7 +128,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Richtext] new instance of Richtext
     # @example
-    #   app.richtext(id: 'id', label: 'label', class: 'YLabel')
+    #   app.richtext(id: 'id', label: 'label', class: 'YRichText')
     def richtext(filter)
       Widgets::Richtext.new(@widget_controller, FilterExtractor.new(filter))
     end
