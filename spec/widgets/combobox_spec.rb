@@ -51,17 +51,33 @@ module LibyuiClient
         end
       end
 
-      describe '#selected_item' do
+      describe '#value' do
         context 'existing widget' do
           it 'should return array of strings' do
             get_items
-            expect(@app.combobox(id).selected_item).to eq(select_item)
+            expect(@app.combobox(id).value).to eq(select_item)
           end
         end
         context 'non-existent widget' do
           it 'should raise WidgetNotFoundError' do
             stub_get_id_404
-            expect { @app.combobox(id).selected_item }.to raise_error(Error::WidgetNotFoundError)
+            expect { @app.combobox(id).value }.to raise_error(Error::WidgetNotFoundError)
+          end
+        end
+      end
+
+      describe '#select' do
+        context 'existing widget' do
+          it 'should succeed' do
+            select_item_in_existing_combobox
+            @app.combobox(id).select(select_item)
+            expect(select_item_in_existing_combobox).to have_been_made.once
+          end
+        end
+        context 'non-existent widget' do
+          it 'should raise WidgetNotFoundError' do
+            select_item_in_non_existent_combobox
+            expect { @app.combobox(id).select(select_item) }.to raise_error(Error::WidgetNotFoundError)
           end
         end
       end

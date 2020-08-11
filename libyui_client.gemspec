@@ -7,8 +7,9 @@ require 'libyui_client/version'
 Gem::Specification.new do |spec|
   spec.name          = 'libyui_client'
   spec.version       = LibyuiClient::VERSION
-  spec.authors       = ['Joaquin Rivera', 'Oleksandr Orlov']
-  # spec.email         = ["TODO: Write your email address"]
+  spec.required_ruby_version = '>= 2.5.0'
+  spec.authors       = ['Joaquin Rivera', 'Ioannis Bonatakis', 'Oleksandr Orlov', 'Rodion Iafarov', 'Sofia Syrianidou']
+  spec.email         = ['qa-sle-yast@suse.de']
 
   spec.summary       = 'Client for libyui applications.'
   spec.description   = 'Client to operate controls for libyui applications.'

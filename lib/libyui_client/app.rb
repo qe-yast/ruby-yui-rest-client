@@ -13,12 +13,22 @@ module LibyuiClient
       @version_controller = Http::VersionController.new(host: host, port: port)
     end
 
+    # Initializes new instance of Bargraph with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Bargraph] new instance of Table
+    # @example
+    #   app.bargraph(id: 'id', label: 'label', class: 'YBarGraph')
+    def bargraph(filter)
+      Widgets::Bargraph.new(@widget_controller, FilterExtractor.new(filter))
+    end
+
     # Initializes new instance of Button with the filter provided.
     # Does not make request to libyui-rest-api.
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Button] new instance of Button
     # @example
-    #   app.button(id: 'id', label: 'label', type: 'YPushButton')
+    #   app.button(id: 'id', label: 'label', class: 'YPushButton')
     def button(filter)
       Widgets::Button.new(@widget_controller, FilterExtractor.new(filter))
     end
@@ -28,7 +38,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Checkbox] new instance of Checkbox
     # @example
-    #   app.checkbox(id: 'id', label: 'label', type: 'YCheckBox')
+    #   app.checkbox(id: 'id', label: 'label', class: 'YCheckBox')
     def checkbox(filter)
       Widgets::Checkbox.new(@widget_controller, FilterExtractor.new(filter))
     end
@@ -38,9 +48,19 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Combobox] new instance of Combobox
     # @example
-    #   app.checkbox(id: 'id', label: 'label', type: 'YComboBox')
+    #   app.combobox(id: 'id', label: 'label', class: 'YComboBox')
     def combobox(filter)
       Widgets::Combobox.new(@widget_controller, FilterExtractor.new(filter))
+    end
+
+    # Initializes new instance of Datefield with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Datefield] new instance of Datefield
+    # @example
+    #   app.datefield(id: 'id', label: 'label', class: 'YDateField')
+    def datefield(filter)
+      Widgets::Datefield.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Label with the filter provided.
@@ -48,7 +68,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Label] new instance of Label
     # @example
-    #   app.label(id: 'id', label: 'label', type: 'YLabel')
+    #   app.label(id: 'id', label: 'label', class: 'YLabel')
     def label(filter)
       Widgets::Label.new(@widget_controller, FilterExtractor.new(filter))
     end
@@ -58,7 +78,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Menubutton] new instance of Menubutton
     # @example
-    #   app.menubutton(id: 'id', label: 'label', type: 'YMenuButton')
+    #   app.menubutton(id: 'id', label: 'label', class: 'YMenuButton')
     def menubutton(filter)
       Widgets::Menubutton.new(@widget_controller, FilterExtractor.new(filter))
     end
@@ -68,7 +88,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Multilinebox] new instance of Multilinebox
     # @example
-    #   app.multilinebox(id: 'id', label: 'label', type: 'YMultiLineEdit')
+    #   app.multilinebox(id: 'id', label: 'label', class: 'YMultiLineEdit')
     def multilinebox(filter)
       Widgets::Multilinebox.new(@widget_controller, FilterExtractor.new(filter))
     end
@@ -78,7 +98,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Numberbox] new instance of Numberbox
     # @example
-    #   app.numberbox(id: 'id', label: 'label', type: 'YIntField')
+    #   app.numberbox(id: 'id', label: 'label', class: 'YIntField')
     def numberbox(filter)
       Widgets::Numberbox.new(@widget_controller, FilterExtractor.new(filter))
     end
@@ -88,7 +108,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Progressbar] new instance of Progressbar
     # @example
-    #   app.progressbar(id: 'id', label: 'label', type: 'YIntField')
+    #   app.progressbar(id: 'id', label: 'label', class: 'YProgressBar')
     def progressbar(filter)
       Widgets::Progressbar.new(@widget_controller, FilterExtractor.new(filter))
     end
@@ -98,7 +118,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Radiobutton] new instance of Radiobutton
     # @example
-    #   app.checkbox(id: 'id', label: 'label', type: 'YRadioButton')
+    #   app.radiobutton(id: 'id', label: 'label', class: 'YRadioButton')
     def radiobutton(filter)
       Widgets::Radiobutton.new(@widget_controller, FilterExtractor.new(filter))
     end
@@ -108,7 +128,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Richtext] new instance of Richtext
     # @example
-    #   app.richtext(id: 'id', label: 'label', type: 'YLabel')
+    #   app.richtext(id: 'id', label: 'label', class: 'YRichText')
     def richtext(filter)
       Widgets::Richtext.new(@widget_controller, FilterExtractor.new(filter))
     end
@@ -118,7 +138,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Selectionbox] new instance of Selectionbox
     # @example
-    #   app.selectionbox(id: 'id', label: 'label', type: 'YSelectionBox')
+    #   app.selectionbox(id: 'id', label: 'label', class: 'YSelectionBox')
     def selectionbox(filter)
       Widgets::Selectionbox.new(@widget_controller, FilterExtractor.new(filter))
     end
@@ -128,7 +148,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Tab] new instance of Tab
     # @example
-    #   app.tab(id: 'id', label: 'label', type: 'YDumbTab')
+    #   app.tab(id: 'id', label: 'label', class: 'YDumbTab')
     def tab(filter)
       Widgets::Tab.new(@widget_controller, FilterExtractor.new(filter))
     end
@@ -138,9 +158,19 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Table] new instance of Table
     # @example
-    #   app.checkbox(id: 'id', label: 'label', type: 'YTable')
+    #   app.table(id: 'id', label: 'label', class: 'YTable')
     def table(filter)
       Widgets::Table.new(@widget_controller, FilterExtractor.new(filter))
+    end
+
+    # Initializes new instance of time field with the filter provided.
+    # Does not make request to libyui-rest-api.
+    # @param filter [Hash] filter to find a widget
+    # @return [Widgets::Timefield] new instance of Table
+    # @example
+    #   app.timefield(id: 'id', label: 'label', class: 'YTimeField')
+    def timefield(filter)
+      Widgets::Timefield.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Textbox with the filter provided.
@@ -148,7 +178,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Textbox] new instance of Textbox
     # @example
-    #   app.textbox(id: 'id', label: 'label', type: 'YInputField')
+    #   app.textbox(id: 'id', label: 'label', class: 'YInputField')
     def textbox(filter)
       Widgets::Textbox.new(@widget_controller, FilterExtractor.new(filter))
     end
@@ -158,7 +188,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Tree] new instance of Tree
     # @example
-    #   app.tree(id: 'id', label: 'label', type: 'YTree')
+    #   app.tree(id: 'id', label: 'label', class: 'YTree')
     def tree(filter)
       Widgets::Tree.new(@widget_controller, FilterExtractor.new(filter))
     end
@@ -168,7 +198,7 @@ module LibyuiClient
     # @param filter [Hash] filter to find a widget
     # @return [Widgets::Wizard] new instance of Wizard
     # @example
-    #   app.wizard(id: 'id', label: 'label', type: 'YWizard')
+    #   app.wizard(id: 'id', label: 'label', class: 'YWizard')
     def wizard(filter)
       Widgets::Wizard.new(@widget_controller, FilterExtractor.new(filter))
     end

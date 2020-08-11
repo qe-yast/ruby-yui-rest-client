@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+require 'date'
 require 'json'
 require 'net/http'
 require 'uri'
 require 'timeout'
+require 'time'
 
 require 'libyui_client/version'
 require 'libyui_client/local_process'

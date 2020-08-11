@@ -2,7 +2,7 @@
 
 module LibyuiClient
   module Widgets
-    # Class representing a Checkbox in UI. It can be YCheckBox.
+    # Class representing a Checkbox in UI. It can be YCheckBox or YCheckBoxFrame.
     class Checkbox < Widgets::Base
       # Sends action to explicitly check the checkbox in UI (regardless of the current state).
       # @return [Checkbox] in case action is successful
@@ -14,7 +14,7 @@ module LibyuiClient
       end
 
       # Returns the state of checkbox (checked/unchecked).
-      # Gets value from 'value' parameter in JSON representation of YCheckBox.
+      # Gets value from 'value' parameter in JSON representation of YCheckBox or YCheckBoxFrame.
       # @return [Boolean] true if it is checked, false otherwise.
       # @example Get checkbox state
       #   {
