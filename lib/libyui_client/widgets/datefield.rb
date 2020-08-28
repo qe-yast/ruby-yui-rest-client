@@ -23,6 +23,25 @@ module LibyuiClient
         action(action: Actions::ENTER_TEXT, value: date.strftime('%F'))
         self
       end
+
+      # Returns text that is currently set for datefield.
+      # Gets value from 'value' parameter in JSON representation of YDateField.
+      # @return [String] value
+      # @example Get value from datefield with id "date"
+      #   {
+      #       "class" : "YDateField",
+      #       "debug_label" : "Date:",
+      #       "hstretch" : true,
+      #       "id" : "date",
+      #       "label" : "&Date:",
+      #       "notify" : true,
+      #       "value" : "1989-11-09"
+      #   }
+      # @example
+      #   app.datefield(id: 'date').value # '1989-11-09'
+      def value
+        property(:value)
+      end
     end
   end
 end
