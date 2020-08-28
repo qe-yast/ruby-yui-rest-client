@@ -30,6 +30,13 @@ module LibyuiClient
           end
         end
       end
+      describe '#value' do
+        let(:response) { double('Response', { body: [{ value: '20:15:00' }] }) }
+        it 'should return the text of the :value' do
+          expect(widget_controller).to receive(:find).and_return(response)
+          expect(subject.value).to eq('20:15:00')
+        end
+      end
     end
   end
 end

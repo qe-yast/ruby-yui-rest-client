@@ -77,6 +77,7 @@ app.combobox(label: 'cmbx', class: 'YComboBox').set # Sets custom string to the 
 ```ruby
 # Set date field to 2048-08-16
 app.datefield(class: 'YDateField').set(Date.new(2048, 8, 16))
+app.datefield(id: 'date').value  # gets value from datefield with id 'date'
 ```
 
 ### Label
@@ -146,6 +147,7 @@ app.textbox(id: 'test_id').value  # gets value from textbox with id 'test_id'
 ```ruby
 # Set TimeField to current time
 app.timefield(label: 'time', class: 'YTimeField').set(Time.now)
+app.timefield(id: 'time').value  # gets value from timefield with id 'time'
 ```
 
 ### Tree
