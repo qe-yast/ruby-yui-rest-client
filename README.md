@@ -1,5 +1,7 @@
 # LibyuiClient
 
+# CI
+
 Ruby gem to interact with YaST applications via libyui-rest-api.
 See documentation of the [libyui-rest-api project](https://github.com/libyui/libyui-rest-api/)
 for more details about server side implementation.
