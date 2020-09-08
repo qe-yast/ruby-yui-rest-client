@@ -13,5 +13,5 @@ script:
   # the "yast-travis-ruby" script is included in the base yastdevel/ruby image                                                                                                                                                                                                                                               
   # see https://github.com/yast/docker-yast-ruby/blob/master/yast-travis-ruby                                                                                                                                                                                                                                                
   - docker run -it -e TRAVIS=1 -e TRAVIS_JOB_ID="$TRAVIS_JOB_ID" libyui_client yast-travis-ruby
-  - docker run -it libyui_client bundle install
-  - docker run -it libyui_client rake spec
+  #- docker run -it libyui_client bundle install
+  #- docker run -it libyui_client rake spec
