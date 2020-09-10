@@ -1,7 +1,7 @@
 # Cops documentation: https://rubocop.readthedocs.io/en/stable/
 
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.3
 
 Layout/LineLength:
   Max: 120
