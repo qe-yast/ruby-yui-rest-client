@@ -1,7 +1,6 @@
 # Cops documentation: https://rubocop.readthedocs.io/en/stable/
-
-AllCops:
-  TargetRubyVersion: 2.5
+inherit_from:
+  /usr/share/YaST2/data/devtools/data/rubocop-0.71.0_yast_style.yml
 
 Layout/LineLength:
   Max: 120
