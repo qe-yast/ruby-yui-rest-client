@@ -1,0 +1,86 @@
+#
+# spec file for package libyui-client
+#
+# Copyright (c) 2020 SUSE LINUX GmbH, Nuernberg, Germany.
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+Name:           libyui-client
+Version:        0.4.0
+Release:        0
+Source:         %{name}-%{version}.tar.bz2
+
+# optionally build with code coverage reporting,
+# this uses debug build, do not use in production!
+#%bcond_with coverage
+%define bin_name %{name}
+
+BuildRequires:  cmake >= 2.8
+BuildRequires:  gcc-c++
+BuildRequires:  pkg-config
+BuildRequires:  ruby
+BuildRequires:  ruby-devel
+BuildRequires:  ruby-devel-extra
+BuildRequires:  ruby-doc-ri
+BuildRequires:  rubygem(gem2rpm)
+# Needed already in build time
+BuildRequires:  yast2-core >= 2.18.12
+BuildRequires:  yast2-devtools >= 3.1.10
+# For running RSpec tests during build
+BuildRequires:  rubygem(%{rb_default_ruby_abi}:rspec)
+BuildRequires:  rubygem(%rb_default_ruby_abi:yast-rake)
+
+Url:            https://github.com/qa-sle-yast/libyui_client
+Summary:        Client for libyui applications.
+License:        LGPL-2.1-only OR LGPL-3.0-only
+Group:          System/Libraries
+
+%description
+Client to operate controls for libyui applications.
+
+Originally developed for YaST. This package has very few
+dependencies.
+
+%package -n %{bin_name}
+
+Provides:       libyui-client = 0.4.0
+Obsoletes:
+Requires:       yast2
+Requires:       libyui-rest-api11
+Requires:       libyui-qt-rest-api11
+Requires:       libyui-ncurses-rest-api11
+Requires:       patterns-yast-yast2_basis
+
+Url:
+Summary:
+Group:
+
+%description -n %{bin_name}
+
+%prep
+
+%build
+./bootstrap.sh
+mkdir build
+cd build
+
+%check
+cd build
+make test
+
+%install
+gem_install
+--doc-files="LICENSE.txt README.md" \
+	   -f
+
+%clean
+rm -rf "$RPM_BUILD_ROOT"
+
+%post
