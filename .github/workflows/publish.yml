@@ -1,0 +1,33 @@
+name: Publish Gem
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Publish Gem
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.5
+    - name: Install dependencies
+      run: bundle install
+    - name: Setup credentials
+      env:
+        RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+      run: |
+        cat << EOF > ~/.gem/credentials
+        ---
+        :rubygems_api_key: $RUBYGEMS_API_KEY
+        EOF
+        chmod 0600 ~/.gem/credentials
+    - name: Build gem
+      run: gem build libyui_client.gemspec
+    - name: Push gem
+      run: gem push libyui_client*.gem
+    - name: Cleanup credentials
+      if: always()
+      run: rm ~/.gem/credentials

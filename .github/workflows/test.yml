@@ -1,0 +1,26 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby: [ '2.5', '2.6' ]
+    name: Ruby ${{ matrix.ruby }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Check version file was changed
+      run: |
+        git fetch origin master
+        git --no-pager diff --name-only FETCH_HEAD `git merge-base FETCH_HEAD master` | grep version.rb
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+    - name: Install dependencies
+      run: bundle install
+    - name: Run rubocop
+      run: bundle exec rubocop
+    - name: Run tests
+      run: bundle exec rspec
