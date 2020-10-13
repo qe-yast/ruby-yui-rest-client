@@ -2,10 +2,10 @@
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'libyui_client/version'
+require 'yui_rest_client/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'libyui_client'
+  spec.name          = 'yui_rest_client'
   spec.version       = LibyuiClient::VERSION
   spec.required_ruby_version = '>= 2.5.0'
   spec.authors       = ['Joaquin Rivera', 'Ioannis Bonatakis', 'Oleksandr Orlov', 'Rodion Iafarov', 'Sofia Syrianidou']

@@ -25,9 +25,9 @@ jobs:
         EOF
         chmod 0600 ~/.gem/credentials
     - name: Build gem
-      run: gem build libyui_client.gemspec
+      run: gem build yui_rest_client.gemspec
     - name: Push gem
-      run: gem push libyui_client*.gem
+      run: gem push yui_rest_client*.gem
     - name: Cleanup credentials
       if: always()
       run: rm ~/.gem/credentials

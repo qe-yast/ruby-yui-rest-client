@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
-require 'libyui_client'
+require 'yui_rest_client'
 require 'webmock/rspec'
 require 'widgets/widgets_common_spec'
 
