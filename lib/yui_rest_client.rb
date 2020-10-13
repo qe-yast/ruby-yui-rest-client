@@ -23,7 +23,7 @@ require 'yui_rest_client/actions'
 require 'yui_rest_client/filter_extractor'
 
 # Client to interact with YAST UI rest api framework for integration testing
-module LibyuiClient
+module YuiRestClient
   class << self
     attr_writer :timeout, :interval
 
@@ -37,6 +37,6 @@ module LibyuiClient
   end
 
   def self.logger
-    @logger ||= LibyuiClient::Logger.new
+    @logger ||= YuiRestClient::Logger.new
   end
 end

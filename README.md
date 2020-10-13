@@ -1,4 +1,4 @@
-# LibyuiClient
+# YuiRestClient
 
 Ruby gem to interact with YaST applications via libyui-rest-api.
 See documentation of the [libyui-rest-api project](https://github.com/libyui/libyui-rest-api/)
@@ -9,7 +9,7 @@ Usage example:
 ```ruby
 require 'yui_rest_client'
 
-app = LibyuiClient::App.new(host: 'localhost', port: '9999')
+app = YuiRestClient::App.new(host: 'localhost', port: '9999')
 button = app.button(id: 'settime')
 button.click
 ```
@@ -38,7 +38,7 @@ Then the code to initialize the application looks like:
 ```ruby
 require 'yui_rest_client'
 
-app = LibyuiClient::App.new(host: 'localhost', port: '9999')
+app = YuiRestClient::App.new(host: 'localhost', port: '9999')
 ```
 
 ## Supported widgets
@@ -191,8 +191,8 @@ interact with them (e.g. when navigating from one screen to another).
 The default timeout and interval can be changed by the following:
 
 ```ruby
-LibyuiClient.timeout = 10
-LibyuiClient.interval = 1
+YuiRestClient.timeout = 10
+YuiRestClient.interval = 1
 ```
 
 ### Specific waits

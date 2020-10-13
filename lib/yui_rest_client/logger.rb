@@ -3,7 +3,7 @@
 require 'forwardable'
 require 'logger'
 
-module LibyuiClient
+module YuiRestClient
   class Logger
     extend Forwardable
 
@@ -20,7 +20,7 @@ module LibyuiClient
 
     def create_logger(output)
       logger = ::Logger.new(output)
-      logger.progname = 'LibyuiClient'
+      logger.progname = 'YuiRestClient'
       logger.level = default_level
       logger
     end

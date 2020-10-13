@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     # Class representing a numberbox in the UI. It can be YIntField.
     class Numberbox < Widgets::Base

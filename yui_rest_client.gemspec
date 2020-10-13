@@ -6,7 +6,7 @@ require 'yui_rest_client/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'yui_rest_client'
-  spec.version       = LibyuiClient::VERSION
+  spec.version       = YuiRestClient::VERSION
   spec.required_ruby_version = '>= 2.5.0'
   spec.authors       = ['Joaquin Rivera', 'Ioannis Bonatakis', 'Oleksandr Orlov', 'Rodion Iafarov', 'Sofia Syrianidou']
   spec.email         = ['qa-sle-yast@suse.de']

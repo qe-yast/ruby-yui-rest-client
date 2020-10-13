@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     # Class representing a multilinebox in the UI. It can be YMultiLineEdit.
     class Multilinebox < Widgets::Base

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   class FilterExtractor
     attr_reader :full, :plain, :regex
 

@@ -2,7 +2,7 @@
 
 require 'rspec'
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     RSpec.describe Datefield do
       let(:id) { { id: 'date' } }
@@ -31,8 +31,8 @@ module LibyuiClient
           end
         end
         context 'use string to set value' do
-          it 'it raises LibyuiClientError' do
-            expect { subject.set('str') }.to raise_error(Error::LibyuiClientError)
+          it 'it raises YuiRestClientError' do
+            expect { subject.set('str') }.to raise_error(Error::YuiRestClientError)
           end
         end
       end

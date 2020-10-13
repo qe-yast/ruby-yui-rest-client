@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     # Class representing a button in UI. It can be YQWizardButton, YPushButton.
     class Button < Widgets::Base

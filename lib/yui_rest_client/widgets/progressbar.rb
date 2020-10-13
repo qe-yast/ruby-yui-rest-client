@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     # Class representing a Progressbar in UI. It can be YProgressBar.
     class Progressbar < Widgets::Base

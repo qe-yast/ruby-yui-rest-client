@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     # Class representing a menubutton in UI. It can be YMenuButton.
     class Menubutton < Widgets::Base

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Error
-    class LibyuiClientError < StandardError; end
+    class YuiRestClientError < StandardError; end
 
-    class TimeoutError < LibyuiClientError; end
+    class TimeoutError < YuiRestClientError; end
 
-    class WidgetNotFoundError < LibyuiClientError; end
+    class WidgetNotFoundError < YuiRestClientError; end
 
-    class ItemNotFoundInWidgetError < LibyuiClientError; end
+    class ItemNotFoundInWidgetError < YuiRestClientError; end
   end
 end

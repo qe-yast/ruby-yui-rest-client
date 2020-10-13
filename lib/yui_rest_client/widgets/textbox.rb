@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     # Class representing a textbox in the UI. It can be YInputField.
     class Textbox < Widgets::Base

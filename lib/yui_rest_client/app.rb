@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   class App
-    # Used to initialize main entry point of LibyuiClient and set host and port
+    # Used to initialize main entry point of YuiRestClient and set host and port
     # for the application under control.
     # @param host [String] host address (e.g. 'localhost', '192.168.0.1')
     # @param port [String] port opened for communication (e.g. '9999')
@@ -219,11 +219,11 @@ module LibyuiClient
     # @return true if version is compatible, false if not or any error while
     #         receiving version from the server
     def check_api_version
-      LibyuiClient.logger.info("Client API version: #{API_VERSION}")
+      YuiRestClient.logger.info("Client API version: #{API_VERSION}")
       server_api_v = server_api_version
-      raise Error::LibyuiClientError if server_api_v.nil?
+      raise Error::YuiRestClientError if server_api_v.nil?
 
-      LibyuiClient.logger.info("Server API version: #{server_api_v}")
+      YuiRestClient.logger.info("Server API version: #{server_api_v}")
       server_api_v <= client_api_version
     end
   end

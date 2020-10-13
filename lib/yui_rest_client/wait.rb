@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Wait
     def self.until(timeout:, interval:, message: nil, object: nil)
       Timer.wait(timeout, interval) do

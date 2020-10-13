@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     # Class representing a Label UI. It can be YLabel, YLabel_Heading
     class Label < Widgets::Base

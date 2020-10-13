@@ -2,7 +2,7 @@
 
 require 'rspec'
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     RSpec.describe Checkbox do
       include_context 'WidgetsCommon'

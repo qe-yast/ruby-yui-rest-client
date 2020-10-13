@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     require 'yui_rest_client/waitable'
     require 'yui_rest_client/widgets/base'

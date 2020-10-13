@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Actions
     PRESS = 'press'
     TOGGLE = 'toggle'

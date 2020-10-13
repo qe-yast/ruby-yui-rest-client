@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     # Class representing a richtext in the UI. It can be YRichText.
     class Richtext < Widgets::Base

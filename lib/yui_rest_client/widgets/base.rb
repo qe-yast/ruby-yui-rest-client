@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     class Base
       include Waitable
@@ -16,12 +16,12 @@ module LibyuiClient
       # @example Check if button with id 'test' exists
       #   app.button(id: 'test').exists? # true
       def exists?
-        LibyuiClient.logger.info("Checking if #{class_name} with #{@filter} exists")
+        YuiRestClient.logger.info("Checking if #{class_name} with #{@filter} exists")
         find_widgets
-        LibyuiClient.logger.info("#{class_name} exists: #{@filter}")
+        YuiRestClient.logger.info("#{class_name} exists: #{@filter}")
         true
       rescue Error::WidgetNotFoundError
-        LibyuiClient.logger.info("#{class_name} does not exist: #{@filter}")
+        YuiRestClient.logger.info("#{class_name} does not exist: #{@filter}")
         false
       end
 
@@ -61,9 +61,9 @@ module LibyuiClient
       # @example Get value of "label" property for button with id "test"
       #   value = app.button(id: 'test').property(:label)
       def property(property)
-        LibyuiClient.logger.info("Get #{property} for #{class_name} #{@filter}")
+        YuiRestClient.logger.info("Get #{property} for #{class_name} #{@filter}")
         result = find_widgets.first[property.to_sym]
-        LibyuiClient.logger.info("Found '#{property}=#{result}' for #{class_name} #{@filter}")
+        YuiRestClient.logger.info("Found '#{property}=#{result}' for #{class_name} #{@filter}")
         result
       end
 
@@ -77,7 +77,7 @@ module LibyuiClient
           widget = find_widgets.first
           @filter = FilterExtractor.new(widget)
         end
-        LibyuiClient.logger.info("Send #{params} action for #{class_name} #{@filter}")
+        YuiRestClient.logger.info("Send #{params} action for #{class_name} #{@filter}")
         @widget_controller.send_action(@filter.plain, params)
       end
 
@@ -91,9 +91,9 @@ module LibyuiClient
       #   checkboxes = app.checkbox(class: "YCheckBox").collect_all
       #   checkboxes.each{ |checkbox| puts checkbox.check }
       def collect_all
-        LibyuiClient.logger.info("Collect all #{class_name} widgets with filter #{@filter}")
+        YuiRestClient.logger.info("Collect all #{class_name} widgets with filter #{@filter}")
         widgets = find_widgets
-        LibyuiClient.logger.info("Found widgets for filter #{@filter}: #{widgets}")
+        YuiRestClient.logger.info("Found widgets for filter #{@filter}: #{widgets}")
         widgets.map do |widget|
           self.class.new(@widget_controller, FilterExtractor.new(widget))
         end
@@ -106,7 +106,7 @@ module LibyuiClient
       end
 
       def find_widgets
-        LibyuiClient.logger.info("Search for #{class_name} #{@filter}")
+        YuiRestClient.logger.info("Search for #{class_name} #{@filter}")
         @widget_controller.find(@filter.plain).body(regex_filter: @filter.regex)
       end
     end

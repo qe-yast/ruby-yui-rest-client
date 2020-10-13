@@ -2,7 +2,7 @@
 
 require 'rspec'
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     RSpec.describe Progressbar do
       let(:widget_controller) { instance_double('widget_controller') }

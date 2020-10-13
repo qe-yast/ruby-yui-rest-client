@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     # Class representing a bar graph in the UI, namely YBarGraph.
     class Bargraph < Widgets::Base

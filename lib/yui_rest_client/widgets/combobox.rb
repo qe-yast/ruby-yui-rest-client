@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     # Class representing a ComboBox in the UI. It can be YComboBox.
     class Combobox < Widgets::Base
@@ -37,7 +37,7 @@ module LibyuiClient
       # @param item [String] item to select in combobox.
       # List of items can be retrieved from JSON "items"->"label" manually or by using 'combobox(filter).items'.
       # @return [Combobox] in case action is successful
-      # @raise LibyuiClient::Error::ItemNotFoundInWidgetError in case value is not found in combobox.
+      # @raise YuiRestClient::Error::ItemNotFoundInWidgetError in case value is not found in combobox.
       # @example Select "Force NFSv3" item in combobox with id "nfs_version"
       #   app.combobox(id: 'nfs_version').select('Force NFSv3')
       def select(item)
@@ -75,7 +75,7 @@ module LibyuiClient
       # @param item [String] value to set in the combobox.
       # To check if combobox is editable, call editable?
       # @return [Combobox] in case action is successful
-      # @raise LibyuiClient::Error::ItemNotFoundInWidgetError in case value is not found in combobox.
+      # @raise YuiRestClient::Error::ItemNotFoundInWidgetError in case value is not found in combobox.
       # @example Set "Custom Version" item in combobox with id "nfs_version"
       #   app.combobox(id: 'nfs_version').select('Custom Version')
       def set(value)

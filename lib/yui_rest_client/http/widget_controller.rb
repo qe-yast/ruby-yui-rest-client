@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Http
     class WidgetController
       def initialize(host:, port:)
         @host = host
         @port = port
-        @timeout = LibyuiClient.timeout
-        @interval = LibyuiClient.interval
+        @timeout = YuiRestClient.timeout
+        @interval = YuiRestClient.interval
       end
 
       # Find a widget using the filter.
@@ -47,7 +47,7 @@ module LibyuiClient
 
         raise Error::ItemNotFoundInWidgetError if response.is_a?(Net::HTTPUnprocessableEntity)
 
-        raise Error::LibyuiClientError
+        raise Error::YuiRestClientError
       end
     end
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     # Class representing a tab in the UI. It can be YDumbTab.
     class Tab < Widgets::Base

@@ -2,7 +2,7 @@
 
 require 'rspec'
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     RSpec.describe Label do
       include_context 'WidgetsCommon'
