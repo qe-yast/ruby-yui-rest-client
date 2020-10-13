@@ -19,7 +19,13 @@ button.click
 As soon as the gem is in development, run the following command from command line:
 
 ```
-gem "yui_rest_client", :git => "git@github.com:jknphy/yui_rest_client.git"
+gem install yui_rest_client
+```
+
+In order to build and install locally run:
+```
+gem build yui_rest_client.gemspec
+gem install yui_rest_client-*.gem
 ```
 
 Now need to require gem in order to use it.
