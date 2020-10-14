@@ -8,13 +8,13 @@ RSpec.shared_context 'WidgetsCommon' do
   URL = "http://#{HOSTNAME}:#{PORT}"
 
   before(:all) do
-    LibyuiClient.timeout = 0
-    LibyuiClient.interval = 0
-    @app = LibyuiClient::App.new(host: HOSTNAME, port: PORT)
+    YuiRestClient.timeout = 0
+    YuiRestClient.interval = 0
+    @app = YuiRestClient::App.new(host: HOSTNAME, port: PORT)
   end
 
   # Common Request/Response parts
-  let(:widgets_url) { "#{URL}/#{LibyuiClient::API_VERSION}/widgets" }
+  let(:widgets_url) { "#{URL}/#{YuiRestClient::API_VERSION}/widgets" }
   let(:id) { { id: 'libyui' } }
   let(:query_id) { { query: id } }
   let(:status404) { { status: 404 } }

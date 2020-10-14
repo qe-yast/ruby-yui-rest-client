@@ -2,7 +2,7 @@
 
 require 'rspec'
 
-module LibyuiClient
+module YuiRestClient
   module Http
     RSpec.describe VersionController do
       let(:version_controller) { VersionController.new(host: 'test.org', port: 80) }
@@ -14,9 +14,9 @@ module LibyuiClient
           end
         end
         context 'server returns not OK status' do
-          it 'raises LibyuiClientError' do
+          it 'raises YuiRestClientError' do
             stub_request(:get, 'test.org/version').to_return(status: [500, 'Internal Server Error'])
-            expect { version_controller.api_version }.to raise_error(Error::LibyuiClientError)
+            expect { version_controller.api_version }.to raise_error(Error::YuiRestClientError)
           end
         end
         context 'server response times out' do

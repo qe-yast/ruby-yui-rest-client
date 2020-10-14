@@ -1,4 +1,4 @@
-# LibyuiClient
+# YuiRestClient
 
 Ruby gem to interact with YaST applications via libyui-rest-api.
 See documentation of the [libyui-rest-api project](https://github.com/libyui/libyui-rest-api/)
@@ -7,19 +7,25 @@ for more details about server side implementation.
 Usage example:
 
 ```ruby
-require 'libyui_client'
+require 'yui_rest_client'
 
-app = LibyuiClient::App.new(host: 'localhost', port: '9999')
+app = YuiRestClient::App.new(host: 'localhost', port: '9999')
 button = app.button(id: 'settime')
 button.click
 ```
 
-## Installing libyui_client
+## Installing yui_rest_client
 
 As soon as the gem is in development, run the following command from command line:
 
 ```
-gem "libyui_client", :git => "git@github.com:jknphy/libyui_client.git"
+gem install yui_rest_client
+```
+
+In order to build and install locally run:
+```
+gem build yui_rest_client.gemspec
+gem install yui_rest_client-*.gem
 ```
 
 Now need to require gem in order to use it.
@@ -30,14 +36,14 @@ It is assumed the application is running on `localhost:9999`.
 Then the code to initialize the application looks like:
 
 ```ruby
-require 'libyui_client'
+require 'yui_rest_client'
 
-app = LibyuiClient::App.new(host: 'localhost', port: '9999')
+app = YuiRestClient::App.new(host: 'localhost', port: '9999')
 ```
 
 ## Supported widgets
 
-libyui_client supports different types of widgets.
+yui_rest_client supports different types of widgets.
 
 Here are examples of usage:
 
@@ -159,7 +165,7 @@ app.tree(id: 'test_id').selected_item  # gets currently highlighted item from tr
 
 ## Filters
 
-libyui_client supports the same filters, as libyui-rest-api provides:
+yui_rest_client supports the same filters, as libyui-rest-api provides:
 
   * id - widget ID serialized as string, might include special characters like backtick (\`)
   * label - widget label as currently displayed (i.e. translated!)
@@ -176,17 +182,17 @@ app.button(id: /.*test/).debug_label
 
 ### Default timeout and interval
 
-All the actions against widgets in libyui_client are made with default timeout and interval.
+All the actions against widgets in yui_rest_client are made with default timeout and interval.
 Default timeout is 5 sec, default interval is 0.5 sec.
-That means libyui_client will repeat sending requests to YaST application every 0.5 seconds until 5 seconds
+That means yui_rest_client will repeat sending requests to YaST application every 0.5 seconds until 5 seconds
 timeout will be reached. This default wait is needed because widgets may not be loaded immediately while trying to
 interact with them (e.g. when navigating from one screen to another).
 
 The default timeout and interval can be changed by the following:
 
 ```ruby
-LibyuiClient.timeout = 10
-LibyuiClient.interval = 1
+YuiRestClient.timeout = 10
+YuiRestClient.interval = 1
 ```
 
 ### Specific waits

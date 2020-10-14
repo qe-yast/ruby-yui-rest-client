@@ -2,7 +2,7 @@
 
 require 'rspec'
 
-module LibyuiClient
+module YuiRestClient
   module Http
     RSpec.describe Response do
       describe '#body' do

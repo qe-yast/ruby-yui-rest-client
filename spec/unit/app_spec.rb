@@ -2,13 +2,13 @@
 
 require 'rspec'
 
-module LibyuiClient
+module YuiRestClient
   RSpec.describe App do
     let(:app) { App.new(host: 'test.org', port: 80) }
     describe '#client_api_version' do
       context 'client REST API version is requested' do
-        it 'returns the version defined in LibyuiClient' do
-          expect(app.client_api_version).to eq(LibyuiClient::API_VERSION)
+        it 'returns the version defined in YuiRestClient' do
+          expect(app.client_api_version).to eq(YuiRestClient::API_VERSION)
         end
       end
     end
@@ -40,9 +40,9 @@ module LibyuiClient
         end
       end
       context 'server API version is not property provided and is nill' do
-        it 'raises LibyuiClientError' do
+        it 'raises YuiRestClientError' do
           allow_any_instance_of(Http::VersionController).to receive(:api_version).and_return(nil)
-          expect { app.check_api_version }.to raise_error(Error::LibyuiClientError)
+          expect { app.check_api_version }.to raise_error(Error::YuiRestClientError)
         end
       end
     end

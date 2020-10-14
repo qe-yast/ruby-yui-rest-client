@@ -2,7 +2,7 @@
 
 require 'rspec'
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     RSpec.describe Bargraph do
       let(:widget_controller) { instance_double('WidgetController') }

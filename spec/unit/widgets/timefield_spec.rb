@@ -2,7 +2,7 @@
 
 require 'rspec'
 
-module LibyuiClient
+module YuiRestClient
   module Widgets
     RSpec.describe Timefield do
       let(:id) { { id: 'time' } }
@@ -25,8 +25,8 @@ module LibyuiClient
           end
         end
         context 'use Date to set time field value' do
-          it 'it raises LibyuiClientError' do
-            expect { subject.set(Date.new(1998, 1, 1)) }.to raise_error(Error::LibyuiClientError)
+          it 'it raises YuiRestClientError' do
+            expect { subject.set(Date.new(1998, 1, 1)) }.to raise_error(Error::YuiRestClientError)
           end
         end
       end

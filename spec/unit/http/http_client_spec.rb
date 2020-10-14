@@ -2,14 +2,14 @@
 
 require 'rspec'
 
-module LibyuiClient
+module YuiRestClient
   module Http
     RSpec.describe HttpClient do
       let(:http) { Net::HTTPSuccess.new('1.1', 200, 'OK') }
       before { allow(http).to receive(:body).and_return('{"id": "foo"}') }
       describe '#http_get' do
         context 'makes a GET request' do
-          it 'returns a new LibyuiClient::Http::Response' do
+          it 'returns a new YuiRestClient::Http::Response' do
             expect_any_instance_of(Net::HTTP).to receive(:request).with(an_instance_of(Net::HTTP::Get))
                                                                   .and_return(http)
             escapedurl = URI.escape('http://test.org')
@@ -24,7 +24,7 @@ module LibyuiClient
 
       describe '#http_post' do
         context 'makes a POST request' do
-          it 'returns a new LibyuiClient::Http::Response' do
+          it 'returns a new YuiRestClient::Http::Response' do
             expect_any_instance_of(Net::HTTP).to receive(:request).with(an_instance_of(Net::HTTP::Post))
                                                                   .and_return(http)
             escapedurl = URI.escape('http://test.org/?widgets')
