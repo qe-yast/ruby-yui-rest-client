@@ -92,9 +92,9 @@ app.label(id: 'test_id').heading?  # gets if label has bold font respresentation
 app.label(id: 'test_id').text  # gets text from label with id 'test_id'
 ```
 
-### Menubutton
+### MenuCollection
 ```ruby
-app.menubutton(id: 'test_id').click('button1')  # clicks on 'button1' of menubutton with id 'test_id'
+app.menucollection(id: 'test_id').click('item1')  # clicks on 'item1' of menucollection with id 'test_id'
 ```
 
 ### Numberbox
