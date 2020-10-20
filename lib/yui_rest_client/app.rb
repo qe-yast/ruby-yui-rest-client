@@ -73,14 +73,14 @@ module YuiRestClient
       Widgets::Label.new(@widget_controller, FilterExtractor.new(filter))
     end
 
-    # Initializes new instance of Menubutton with the filter provided.
+    # Initializes new instance of Menucollection with the filter provided.
     # Does not make request to libyui-rest-api.
     # @param filter [Hash] filter to find a widget
-    # @return [Widgets::Menubutton] new instance of Menubutton
+    # @return [Widgets::Menucollection] new instance of Menucollection
     # @example
-    #   app.menubutton(id: 'id', label: 'label', class: 'YMenuButton')
-    def menubutton(filter)
-      Widgets::Menubutton.new(@widget_controller, FilterExtractor.new(filter))
+    #   app.menucollection(id: 'id', label: 'label', class: 'YMenuButton')
+    def menucollection(filter)
+      Widgets::Menucollection.new(@widget_controller, FilterExtractor.new(filter))
     end
 
     # Initializes new instance of Multilinebox with the filter provided.

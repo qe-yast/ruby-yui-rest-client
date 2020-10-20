@@ -10,7 +10,7 @@ module YuiRestClient
     require 'yui_rest_client/widgets/combobox'
     require 'yui_rest_client/widgets/datefield'
     require 'yui_rest_client/widgets/label'
-    require 'yui_rest_client/widgets/menubutton'
+    require 'yui_rest_client/widgets/menucollection'
     require 'yui_rest_client/widgets/multilinebox'
     require 'yui_rest_client/widgets/numberbox'
     require 'yui_rest_client/widgets/progressbar'
