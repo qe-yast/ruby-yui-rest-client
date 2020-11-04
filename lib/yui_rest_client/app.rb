@@ -2,6 +2,8 @@
 
 module YuiRestClient
   class App
+    attr_reader :host, :port
+
     # Used to initialize main entry point of YuiRestClient and set host and port
     # for the application under control.
     # @param host [String] host address (e.g. 'localhost', '192.168.0.1')
@@ -11,6 +13,16 @@ module YuiRestClient
       @port = port
       @widget_controller = Http::WidgetController.new(host: host, port: port)
       @version_controller = Http::VersionController.new(host: host, port: port)
+    end
+
+    # wait until the specified port is open or until the timeout is reached
+    # @raise YuiRestClient::Error::TimeoutError if the port is not opened in time
+    def connect
+      Wait.until(timeout: YuiRestClient.timeout, interval: YuiRestClient.interval) do
+        YuiRestClient.logger.debug("Waiting for #{@host}:#{@port}...")
+        port_open?
+      end
+      self
     end
 
     # Initializes new instance of Bargraph with the filter provided.
@@ -225,6 +237,21 @@ module YuiRestClient
 
       YuiRestClient.logger.info("Server API version: #{server_api_v}")
       server_api_v <= client_api_version
+    end
+
+    private
+
+    # is the target port open?
+    # @return [Boolean] true if the port is open, false otherwise
+    def port_open?(seconds = 1)
+      Timeout.timeout(seconds) do
+        TCPSocket.new(@host, @port).close
+        true
+      rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH
+        false
+      end
+    rescue Timeout::Error
+      false
     end
   end
 end
