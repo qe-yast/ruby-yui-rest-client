@@ -20,7 +20,6 @@ module YuiRestClient
     require 'yui_rest_client/widgets/table'
     require 'yui_rest_client/widgets/textbox'
     require 'yui_rest_client/widgets/timefield'
-    require 'yui_rest_client/widgets/label'
     require 'yui_rest_client/widgets/richtext'
     require 'yui_rest_client/widgets/tree'
     # Class representing a Wizard UI. It can be YWizard

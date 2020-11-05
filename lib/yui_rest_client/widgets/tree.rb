@@ -128,7 +128,7 @@ module YuiRestClient
 
       def get_nodes(items, root = '')
         items.map do |x|
-          current = root.empty? ? x[:label] : root + '|' + x[:label]
+          current = root.empty? ? x[:label] : "#{root}|#{x[:label]}"
           x.key?(:children) ? [current, get_nodes(x[:children], current)] : current
         end.flatten
       end
@@ -136,7 +136,7 @@ module YuiRestClient
       def get_selected_node(items, root = '')
         selected = ''
         items.each do |x|
-          current = root.empty? ? x[:label] : root + '|' + x[:label]
+          current = root.empty? ? x[:label] : "#{root}|#{x[:label]}"
           return current if x[:selected]
 
           selected = get_selected_node(x[:children], current) if x.key?(:children)

@@ -2,11 +2,11 @@
 
 require 'rspec'
 
-RSpec.shared_context 'WidgetsCommon' do
-  HOSTNAME = 'www.example.com'
-  PORT = 9999
-  URL = "http://#{HOSTNAME}:#{PORT}"
+HOSTNAME = 'www.example.com'
+PORT = 9999
+URL = "http://#{HOSTNAME}:#{PORT}"
 
+RSpec.shared_context 'WidgetsCommon' do
   before(:all) do
     YuiRestClient.timeout = 0
     YuiRestClient.interval = 0

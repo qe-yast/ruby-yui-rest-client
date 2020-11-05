@@ -8,7 +8,6 @@ require 'timeout'
 require 'time'
 
 require 'yui_rest_client/version'
-require 'yui_rest_client/local_process'
 require 'yui_rest_client/widgets'
 require 'yui_rest_client/logger'
 require 'yui_rest_client/timer'
