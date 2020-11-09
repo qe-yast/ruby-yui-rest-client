@@ -17,7 +17,7 @@ module YuiRestClient
 
       # Stubbed Requests
       let(:select_item_in_existing_combobox) { stub_post.with(query_select) }
-      let(:select_item_in_non_existent_combobox) { stub_post_404.with(query_select) }
+      let(:select_item_in_non_existent_combobox) { stub_post404.with(query_select) }
       let(:get_items) { stub_get_id.to_return(items_body) }
 
       describe '#select' do
@@ -45,7 +45,7 @@ module YuiRestClient
         end
         context 'non-existent widget' do
           it 'should raise WidgetNotFoundError' do
-            stub_get_id_404
+            stub_get_id404
             expect { @app.combobox(id).items }.to raise_error(Error::WidgetNotFoundError)
           end
         end
@@ -60,7 +60,7 @@ module YuiRestClient
         end
         context 'non-existent widget' do
           it 'should raise WidgetNotFoundError' do
-            stub_get_id_404
+            stub_get_id404
             expect { @app.combobox(id).value }.to raise_error(Error::WidgetNotFoundError)
           end
         end

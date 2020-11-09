@@ -7,19 +7,19 @@ module YuiRestClient
     RSpec.describe Table do
       let(:widget_controller) { instance_double('widget_controller') }
       let(:filter) { FilterExtractor.new({ id: 'foo' }) }
-      let(:header_0) { 'header_0' }
-      let(:header_1) { 'header_1' }
-      let(:headers) { [header_0, header_1] }
-      let(:cell_0_0) { 'cell_0_0' }
-      let(:cell_1_0) { 'cell_1_0' }
-      let(:row_0) { [cell_0_0, '', '', ''] }
-      let(:row_1) { [cell_1_0, '', '', ''] }
-      let(:rows) { [row_0, row_1] }
+      let(:header0) { 'header0' }
+      let(:header1) { 'header1' }
+      let(:headers) { [header0, header1] }
+      let(:cell0) { 'cell0' }
+      let(:cell1) { 'cell1' }
+      let(:row0) { [cell0, '', '', ''] }
+      let(:row1) { [cell1, '', '', ''] }
+      let(:rows) { [row0, row1] }
       let(:table_with_rows) do
         double('Response', { body: [{ header: headers,
                                       items: [
-                                        { labels: row_0 },
-                                        { labels: row_1, selected: true }
+                                        { labels: row0 },
+                                        { labels: row1, selected: true }
                                       ] }] })
       end
       subject { Table.new(widget_controller, filter) }
@@ -55,14 +55,14 @@ module YuiRestClient
         end
         context 'when column is provided' do
           it 'sends select action' do
-            expect(subject).to receive(:action).with({ action: 'select', value: cell_0_0, column: 0 })
-            expect(subject.select(value: cell_0_0, column: header_0)).to equal(subject)
+            expect(subject).to receive(:action).with({ action: 'select', value: cell0, column: 0 })
+            expect(subject.select(value: cell0, column: header0)).to equal(subject)
           end
         end
         context 'when column is not provided' do
           it 'sends select action' do
-            expect(subject).to receive(:action).with({ action: 'select', value: cell_0_0 })
-            expect(subject.select(value: cell_0_0)).to equal(subject)
+            expect(subject).to receive(:action).with({ action: 'select', value: cell0 })
+            expect(subject.select(value: cell0)).to equal(subject)
           end
         end
         context 'when row is provided' do
@@ -73,14 +73,14 @@ module YuiRestClient
         end
         context 'when value and row are provided' do
           it 'sends select action using row' do
-            expect(subject).to receive(:action).with({ action: 'select', value: cell_0_0 })
-            expect(subject.select(value: cell_0_0, row: 0)).to equal(subject)
+            expect(subject).to receive(:action).with({ action: 'select', value: cell0 })
+            expect(subject.select(value: cell0, row: 0)).to equal(subject)
           end
         end
       end
 
       describe '#selected_items' do
-        let(:rows_selected) { [row_1] }
+        let(:rows_selected) { [row1] }
         it 'lists selected items' do
           allow(widget_controller).to receive(:find).and_return(table_with_rows)
           expect(subject.selected_items).to eql(rows_selected)

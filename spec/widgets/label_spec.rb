@@ -27,7 +27,7 @@ module YuiRestClient
         end
         context 'non-existent widget' do
           it 'should raise WidgetNotFoundError' do
-            stub_get_id_404
+            stub_get_id404
             expect { @app.label(id).text }.to raise_error(Error::WidgetNotFoundError)
           end
         end
@@ -50,7 +50,7 @@ module YuiRestClient
         end
         context 'non-existent widget' do
           it 'should raise WidgetNotFoundError' do
-            stub_get_id_404
+            stub_get_id404
             expect { @app.label(id).heading? }.to raise_error(Error::WidgetNotFoundError)
           end
         end
