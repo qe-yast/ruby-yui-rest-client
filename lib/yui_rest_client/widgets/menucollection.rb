@@ -4,13 +4,14 @@ module YuiRestClient
   module Widgets
     # Class representing a menucollection in UI. It can be YMenuButton, YMenuBar.
     class Menucollection < Widgets::Base
-      # Sends action to click on one item of a menu (menu button or menu bar) in UI.
-      # @param item [String] value to select from menu.
-      # @example Click button with label 'test_button' for menucollection with id 'test_id'.
+      # Sends action to click one item of a menu (menu button or menu bar) in UI.
+      # @param path [String] value to select from menu.
+      # @example Click menu item with label 'sub_menu_item' for menucollection
+      # with id 'test_id'.
       # @example
-      #   app.menucollection(id: 'test_id').click('test_item')
-      def click(item)
-        action(action: Actions::PRESS, value: item)
+      #   app.menucollection(id: 'test_id').click('menu_item|sub_menu_item')
+      def click(path)
+        action(action: Actions::SELECT, value: path)
       end
 
       # Returns the list of items available to select from widget.
