@@ -16,7 +16,7 @@ module YuiRestClient
       # Stubbed Requests
       let(:get_header_table) { stub_get_id.to_return(table_header) }
       let(:select_row_in_existing_table) { stub_post.with(query_select) }
-      let(:select_row_in_non_existent_table) { stub_post_404.with(query_select) }
+      let(:select_row_in_non_existent_table) { stub_post404.with(query_select) }
       let(:request_query_value_column) { { value: 'test_row', column: 'header1' } }
 
       describe '#select' do

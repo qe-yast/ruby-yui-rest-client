@@ -16,11 +16,11 @@ module YuiRestClient
 
       # Stubbed Requests
       let(:toggle_existing_checkbox) { stub_post.with(query_toggle) }
-      let(:toggle_non_existent_checkbox) { stub_post_404.with(query_toggle) }
+      let(:toggle_non_existent_checkbox) { stub_post404.with(query_toggle) }
       let(:check_existing_checkbox) { stub_post.with(query_check) }
-      let(:check_non_existent_checkbox) { stub_post_404.with(query_check) }
+      let(:check_non_existent_checkbox) { stub_post404.with(query_check) }
       let(:uncheck_existing_checkbox) { stub_post.with(query_uncheck) }
-      let(:uncheck_non_existent_checkbox) { stub_post_404.with(query_uncheck) }
+      let(:uncheck_non_existent_checkbox) { stub_post404.with(query_uncheck) }
       let(:get_checked_checkbox) { stub_get_id.to_return(checked_checkbox) }
       let(:get_unchecked_checkbox) { stub_get_id.to_return(unchecked_checkbox) }
 
@@ -89,7 +89,7 @@ module YuiRestClient
         end
         context 'non-existent widget' do
           it 'should raise WidgetNotFoundError' do
-            stub_get_id_404
+            stub_get_id404
             expect { @app.checkbox(id).checked? }.to raise_error(Error::WidgetNotFoundError)
           end
         end

@@ -14,7 +14,7 @@ module YuiRestClient
 
       # Stubbed Requests
       let(:set_text_existing_textbox) { stub_post.with(query_enter_text) }
-      let(:set_text_non_existent_textbox) { stub_post_404.with(query_enter_text) }
+      let(:set_text_non_existent_textbox) { stub_post404.with(query_enter_text) }
       let(:get_value) { stub_get_id.to_return(text_from_textbox) }
 
       describe '#set' do
@@ -42,7 +42,7 @@ module YuiRestClient
         end
         context 'non-existent widget' do
           it 'should raise WidgetNotFoundError' do
-            stub_get_id_404
+            stub_get_id404
             expect { @app.textbox(id).value }.to raise_error(Error::WidgetNotFoundError)
           end
         end

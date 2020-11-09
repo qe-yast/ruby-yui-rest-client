@@ -14,7 +14,7 @@ module YuiRestClient
 
       # Stubbed Requests
       let(:select_existing_radiobutton) { stub_post.with(query_select) }
-      let(:select_non_existent_radiobutton) { stub_post_404.with(query_select) }
+      let(:select_non_existent_radiobutton) { stub_post404.with(query_select) }
       let(:get_selected_radiobutton) { stub_get_id.to_return(selected_radiobutton) }
       let(:get_deselected_radiobutton) { stub_get_id.to_return(deselected_radiobutton) }
 
@@ -51,7 +51,7 @@ module YuiRestClient
         end
         context 'non-existent widget' do
           it 'should raise WidgetNotFoundError' do
-            stub_get_id_404
+            stub_get_id404
             expect { @app.radiobutton(id).selected? }.to raise_error(Error::WidgetNotFoundError)
           end
         end

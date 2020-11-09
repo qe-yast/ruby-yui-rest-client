@@ -15,7 +15,7 @@ module YuiRestClient
 
       # Stubbed Requests
       let(:click_link_in_existing_richtext) { stub_post.with(query_select) }
-      let(:click_link_in_non_existing_richtext) { stub_post_404.with(query_select) }
+      let(:click_link_in_non_existing_richtext) { stub_post404.with(query_select) }
       let(:get_text) { stub_get_id.to_return(text_from_label) }
 
       describe '#click_link' do
@@ -43,7 +43,7 @@ module YuiRestClient
         end
         context 'non-existent widget' do
           it 'should raise WidgetNotFoundError' do
-            stub_get_id_404
+            stub_get_id404
             expect { @app.richtext(id).text }.to raise_error(Error::WidgetNotFoundError)
           end
         end

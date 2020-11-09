@@ -13,7 +13,7 @@ module YuiRestClient
 
       # Stubbed Requests
       let(:press_existing_button) { stub_post.with(query_id_press) }
-      let(:press_non_existent_button) { stub_post_404.with(query_id_press) }
+      let(:press_non_existent_button) { stub_post404.with(query_id_press) }
       let(:get_enabled_button) { stub_get_id.to_return(button_enabled) }
       let(:get_disabled_button) { stub_get_id.to_return(disabled_widget) }
 
@@ -42,7 +42,7 @@ module YuiRestClient
         end
         context 'non-existent widget' do
           it 'should raise WidgetNotFoundError' do
-            stub_get_id_404
+            stub_get_id404
             expect { @app.button(id).debug_label }.to raise_error(Error::WidgetNotFoundError)
           end
         end
@@ -65,7 +65,7 @@ module YuiRestClient
         end
         context 'non-existent widget' do
           it 'should raise WidgetNotFoundError' do
-            stub_get_id_404
+            stub_get_id404
             expect { @app.button(id).enabled? }.to raise_error(Error::WidgetNotFoundError)
           end
         end
@@ -79,7 +79,7 @@ module YuiRestClient
         end
         context 'non-existent widget' do
           it 'should raise WidgetNotFoundError' do
-            stub_get_id_404
+            stub_get_id404
             expect { @app.button(id).fkey }.to raise_error(Error::WidgetNotFoundError)
           end
         end
