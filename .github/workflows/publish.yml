@@ -1,6 +1,9 @@
 name: Publish Gem
 on:
   push:
+    paths-ignore:
+      - README.md
+      - '.github/**'
     branches:
       - master
 
